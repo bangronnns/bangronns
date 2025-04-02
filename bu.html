@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Bucin</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+        
+        body { 
+            font-family: 'VT323', monospace;
+            text-align: center; 
+            padding: 20px; 
+            background-color: pink;
+            overflow: hidden;
+            position: relative;
+            font-size: 22px;
+        }
+        .hidden { display: none; }
+        button { margin: 10px; padding: 10px; font-size: 20px; }
+        input { padding: 5px; font-size: 20px; }
+        .float-item {
+            position: absolute;
+            font-size: 24px;
+            animation: float 5s infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0); opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function createFloatingItem() {
+            const items = ["❤️", "🐻", "🐼", "🐶", "🐰", "🧸"];
+            const item = document.createElement("div");
+            item.classList.add("float-item");
+            item.innerHTML = items[Math.floor(Math.random() * items.length)];
+            item.style.left = Math.random() * 100 + "vw";
+            item.style.top = "100vh";
+            item.style.animationDuration = Math.random() * 2 + 3 + "s";
+            document.body.appendChild(item);
+            setTimeout(() => { item.remove(); }, 5000);
+        }
+        setInterval(createFloatingItem, 300);
+    </script>
+    
+    <div id="step1">
+        <h2>Masukkan nama kamu</h2>
+        <input type="text" id="namaInput" placeholder="Nama kamu">
+        <button onclick="lanjutKeNama()">Lanjut</button>
+        <p id="errorNama" style="color: red; display: none;">Ini bukan buat anda, ini buat Geovaniii!</p>
+    </div>
+    
+    <div id="step2" class="hidden">
+        <h2 id="namaTampil"></h2>
+        <p>Kamu udah makan?</p>
+        <button onclick="lanjutMakan('udah')">Udah</button>
+        <button onclick="lanjutMakan('belum')">Belum</button>
+    </div>
+    
+    <div id="step3" class="hidden">
+        <p>Makan apa tadi?</p>
+        <input type="text" id="makananInput" placeholder="Makanan kamu">
+        <button onclick="lanjutKePertanyaan()">Lanjut</button>
+    </div>
+    
+    <div id="step4" class="hidden">
+        <h2>Baiklahh, sekarang aku mau kamu isi yaa Geovani..🩷🩷🩷</h2>
+        <p>Buah Favorit: <input type="text" id="buah" oninput="this.value='Roni'"></p>
+        <p>Hewan Favorit: <input type="text" id="hewan" oninput="this.value='Roni'"></p>
+        <p>Genre Film Favorit: <input type="text" id="film" oninput="this.value='Roni'"></p>
+        <p>Warna Favorit: <input type="text" id="warna" oninput="this.value='Roni'"></p>
+        <p>Artis Barat Wanita Favorit: <input type="text" id="artis" oninput="this.value='Roni'"></p>
+        <p>Lagu Barat Favorit: <input type="text" id="lagu" oninput="this.value='Roni'"></p>
+        <button onclick="prosesJawaban()">Selesai</button>
+    </div>
+    
+    <div id="step5" class="hidden">
+        <h2>Siapa sih RONI? semuanya Diisi Roni🫨🫨</h2>
+        <p>Deskripsikan Roni:</p>
+        <input type="text" id="deskripsiRoni" placeholder="Tulis tentang Roni">
+        <button onclick="lanjutKeDeskripsi()">Lanjut</button>
+    </div>
+    
+    <div id="step6" class="hidden">
+        <h2>Memproses pendeskripsian kamu...</h2>
+        <p id="prosesAnimasi">Loading proses...</p>
+    </div>
+    
+    <div id="step7" class="hidden">
+        <h2>Ohhhh jadi Roni gitu yaa...</h2>
+        <p>Pantes Roni Suka banget sama Geovani..</p>
+        <p>Ternyata Geovani punya cara pandang yang bagus...</p>
+        <p>Positive Vibess..</p>
+        <p>Cantik lagii...</p>
+        <p><i>Github note : soalnya roni pas buat ini Senyum van Wkwkwwkwk</i></p>
+        <button onclick="lanjutGombal()">Lanjut</button>
+    </div>
+    
+    <div id="step8" class="hidden">
+        <h2>Ini web gatau web apa van aku nyoba doang wkwkwkw</h2>
+    </div>
+    
+    <script>
+        let nama;
+        function lanjutKeNama() {
+            nama = document.getElementById("namaInput").value.trim();
+            const validNames = ["Vany", "Vani", "Geovani", "Geo"];
+            if (!validNames.includes(nama)) {
+                document.getElementById("errorNama").style.display = "block";
+            } else {
+                document.getElementById("step1").classList.add("hidden");
+                document.getElementById("namaTampil").innerText = `Ini memang buat si cantik ${nama}`;
+                document.getElementById("step2").classList.remove("hidden");
+            }
+        }
+
+        function lanjutMakan(status) {
+            document.getElementById("step2").classList.add("hidden");
+            document.getElementById("step3").classList.remove("hidden");
+        }
+
+        function lanjutKePertanyaan() {
+            document.getElementById("step3").classList.add("hidden");
+            document.getElementById("step4").classList.remove("hidden");
+        }
+
+        function prosesJawaban() {
+            document.getElementById("step4").classList.add("hidden");
+            document.getElementById("step5").classList.remove("hidden");
+        }
+
+        function lanjutKeDeskripsi() {
+            document.getElementById("step5").classList.add("hidden");
+            document.getElementById("step6").classList.remove("hidden");
+            setTimeout(() => {
+                document.getElementById("step6").classList.add("hidden");
+                document.getElementById("step7").classList.remove("hidden");
+            }, 3000);
+        }
+
+        function lanjutGombal() {
+            document.getElementById("step7").classList.add("hidden");
+            document.getElementById("step8").classList.remove("hidden");
+        }
+    </script>
+</body>
+</html>
