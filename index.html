@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Web Bucin Interaktif</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqhWJIXteg8rgREUCPWIn_RkBgTWlV9W1sRgZZzeem1Nae32QTuZR_22U&s=10');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      color: black;
+      font-weight: bold;
+      text-shadow: 1px 1px pink;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 20px;
+      text-align: center;
+    }
+    button, input, select {
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 10px;
+      border: 1px solid pink;
+      font-size: 20px;
+    }
+    .keyboard {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .keyboard button {
+      font-size: 24px;
+      padding: 15px;
+    }
+    #nameGame {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 20px;
+    }
+    #nameGame span {
+      background: white;
+      padding: 8px 12px;
+      border-radius: 10px;
+      box-shadow: 0 0 5px pink;
+      cursor: pointer;
+    }
+    video {
+      width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="app">
+    <!-- Konten akan dimanipulasi via JavaScript -->
+  </div>
+  <script>
+    let lang = 'id';
+    let nameInput = '';
+
+    const translations = {
+      id: {
+        chooseLang: 'Pilih Bahasa',
+        enterPin: 'Masukan Kode Akses Kamuu🤗',
+        wrongPin: 'Pin Salah, Tersisa ',
+        lockedOut: 'Kamu telah salah 3 kali, halaman akan ditutup!',
+        pinCorrect: 'Nah Ini Baru Vanii, bagaimana kabarmu vaniyyy?',
+        options: ['baik', 'buruk', 'senang', 'sedih'],
+        next: 'Lanjut',
+        happy: (n) => `Lebih senang jika bersama kamu terus di setiap waktu aku.. apanih yang buat kamu senang (${n})?`,
+        sad: 'Jangan Sedih dong, aku ikut sedih juga jadinya🥲, Kamu mau ceritain apa yang buat kamu sedih nggakk',
+        tellHere: (n) => `${n} ceritain Disini aja yaa gaada yang tau kok, Keluarin aja unek unek kamu disini😊😊`,
+        good: (n) => `Baik aja apa baik banget? atau lebih baik kita jalan? Hahaha😂, atauuu baiknya kamu sama aku ajaa?🤣 (${n}) ngapain ajaa hari inii`,
+        bad: (n) => `Jangan bilang ada yang menyakitimu (${n}), Kenapa harimu bisa buruk?? Ada apa?`,
+        loading: 'Loading...',
+        gameTitle: 'Nama mana yang kamu suka?? coba cari nama yang kamu suka..☺',
+        roniFound: 'Roni dipilihh?? Hahahaha, Roni emang siapa sih? dan roni kaya gimanaa orangnya?🥺',
+        processingRoni: 'Memproses Si Roni😂😂',
+        notMe: 'Kenapa ga sama aku ajaaa?? Pasti roni ada kurangnya kann?? Apa coba kurang kurangnya Ronii🥺',
+        roniLacking: 'Memang Bukan kurang lagi si roni ini ba🤣',
+        goodNight: (time) => `Vany, ini sudah jam ${time}. Kamu Butuh Istirahat yang cukup, Matahari Masih Ingin Beradu sinar dengan kamu, setelah kamu mengalahkan cantiknya bulan malam ini, begitupn juga aku, masih menginginkan kamu, Kamu istirahat ya, Jangan Dipaksakan, Kamu harus isi energi untuk besok hari.. satu lagi, jangan lupa berdoa ya, doain biar aku bisa mampir ke mimpi indah kamu✨✨, Good Nite Vani Panjaitan`
+      },
+      en: {
+        chooseLang: 'Choose Language',
+        enterPin: 'Enter Your Access Code🤗',
+        wrongPin: 'Wrong Pin, Remaining ',
+        lockedOut: 'You entered wrong PIN 3 times, closing page!',
+        pinCorrect: 'Finally Vanii! How are you, Vaniyy?',
+        options: ['good', 'bad', 'happy', 'sad'],
+        next: 'Next',
+        happy: (n) => `Happier if always with you.. What made you happy (${n})?`,
+        sad: 'Don’t be sad, I feel sad too🥲. Wanna talk about it?',
+        tellHere: (n) => `${n}, just tell me here, no one else will know. Let it out 😊😊`,
+        good: (n) => `Just good or really good? Or better be with me?🤣 (${n}) what did you do today?`,
+        bad: (n) => `Don't tell me someone hurt you, (${n}).. what happened?`,
+        loading: 'Loading...',
+        gameTitle: 'Which name do you like?? Try finding it..☺',
+        roniFound: 'You picked Roni?? Hahaha, who is Roni and what kind of person is he?🥺',
+        processingRoni: 'Processing Roni😂😂',
+        notMe: 'Why not me?? Roni must be lacking something right?? What is it🥺',
+        roniLacking: 'Roni really lacking huh🤣',
+        goodNight: (time) => `Vany, it’s already ${time}. You need enough rest. The sun still wants to shine with you, just like I do. Rest well, don’t force yourself, recharge for tomorrow.. One more thing, don’t forget to pray, and wish I come to your dreams✨✨, Good night Vani Panjaitan`
+      },
+      it: {
+        chooseLang: 'Scegli la lingua',
+        enterPin: 'Inserisci il tuo codice d'accesso🤗',
+        wrongPin: 'Pin errato, Rimasto ',
+        lockedOut: 'Hai sbagliato 3 volte, la pagina verrà chiusa!',
+        pinCorrect: 'Finalmente Vanii! Come stai, Vanììì?',
+        options: ['bene', 'male', 'felice', 'triste'],
+        next: 'Avanti',
+        happy: (n) => `Più felice se fossi sempre con te.. Cosa ti ha reso felice (${n})?`,
+        sad: 'Non essere triste, mi rattristo anche io🥲. Vuoi parlarne?',
+        tellHere: (n) => `${n}, racconta tutto qui, nessuno lo saprà. Sfogati 😊😊`,
+        good: (n) => `Solo bene o benissimo? O forse meglio con me?🤣 (${n}) cosa hai fatto oggi?`,
+        bad: (n) => `Non dirmi che qualcuno ti ha ferito, (${n}).. cos'è successo?`,
+        loading: 'Caricamento...',
+        gameTitle: 'Quale nome ti piace?? Prova a cercarlo..☺',
+        roniFound: 'Hai scelto Roni?? Hahaha, chi è Roni e com’è fatto?🥺',
+        processingRoni: 'Elaborando Roni😂😂',
+        notMe: 'Perché non me?? Roni avrà dei difetti no?? Quali sono🥺',
+        roniLacking: 'Roni ha proprio tanti difetti🤣',
+        goodNight: (time) => `Vany, sono già le ${time}. Hai bisogno di riposarti bene. Il sole vuole ancora brillare con te, proprio come me. Riposa, non forzarti, ricaricati per domani.. Un'ultima cosa, non dimenticare di pregare, e spera che io venga nei tuoi sogni✨✨, Buona notte Vani Panjaitan`
+      }
+    };
+
+  </script>
+</body>
+</html>
