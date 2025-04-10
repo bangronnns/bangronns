@@ -123,12 +123,12 @@
     function sendMessage() {
       const msg = document.getElementById("messageInput").value;
       if (msg.trim() === "") return;
-      db.ref("chat").push({ from: "Roniii", text: msg, time: new Date().toLocaleTimeString() });
+      db.ref("chat").push({ from: "Vany", text: msg, time: new Date().toLocaleTimeString() });
       document.getElementById("messageInput").value = "";
     }
 
     function sendMissU() {
-      db.ref("chat").push({ from: "Roniii", text: "[I Miss U]", time: new Date().toLocaleTimeString(), missu: true });
+      db.ref("chat").push({ from: "Vanny", text: "[I Miss U]", time: new Date().toLocaleTimeString(), missu: true });
     }
 
     const messagesDiv = document.getElementById("messages");
