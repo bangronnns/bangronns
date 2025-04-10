@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat Vany</title>
+  <style>
+    body { font-family: sans-serif; background: pink; padding: 20px; }
+    #messages { height: 300px; overflow-y: scroll; background: white; padding: 10px; border-radius: 10px; margin-bottom: 10px; }
+    input, button { padding: 10px; }
+  </style>
+</head>
+<body>
+  <h2>Hai RCS...</h2>
+  <div id="messages"></div>
+  <input type="text" id="messageInput" placeholder="Tulis pesan..." />
+  <button onclick="sendMessage()">Kirim</button>
+
+  <!-- Firebase CDN -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+
+  <script>
+    // Konfigurasi Firebase kamu
+    const firebaseConfig = {
+      apiKey: "AIzaSyCciX4h6ktx12QzErdxNhaBybf1wVADCyA",
+      authDomain: "chat-project-9db7a.firebaseapp.com",
+      databaseURL: "https://chat-project-9db7a-default-rtdb.firebaseio.com",
+      projectId: "chat-project-9db7a",
+      storageBucket: "chat-project-9db7a.firebasestorage.app",
+      messagingSenderId: "389148629520",
+      appId: "1:389148629520:web:11c9acdec4aa30d96ac895"
+    };
+
+    // Inisialisasi Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // Kirim pesan
+    function sendMessage() {
+      const msg = document.getElementById("messageInput").value;
+      if (msg.trim() === "") return;
+      db.ref("chat").push({ from: "vany", text: msg });
+      document.getElementById("messageInput").value = "";
+    }
+
+    // Tampilkan pesan
+    const messagesDiv = document.getElementById("messages");
+    db.ref("chat").on("child_added", (snap) => {
+      const data = snap.val();
+      const msgEl = document.createElement("div");
+      msgEl.textContent = `${data.from}: ${data.text}`;
+      messagesDiv.appendChild(msgEl);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    });
+  </script>
+</body>
+</html>
