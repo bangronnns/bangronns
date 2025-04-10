@@ -1,1 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Roniii</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #ffe6f0 url('https://raw.githubusercontent.com/inggarlabs/assets/main/bg-pink.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Special Elite', cursive;
+    }
+    .login-screen, .chat-screen {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      text-align: center;
+    }
+    .login-screen.active, .chat-screen.active {
+      display: flex;
+    }
+    #messages {
+      width: 100%;
+      max-width: 400px;
+      height: 400px;
+      overflow-y: scroll;
+      background: rgba(255,255,255,0.85);
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    input, button {
+      padding: 10px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    .top-bar {
+      background: rgba(255,255,255,0.9);
+      padding: 10px;
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-radius: 0 0 10px 10px;
+    }
+    .top-bar img {
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+    }
+    .top-bar span {
+      font-weight: bold;
+      font-size: 20px;
+    }
+    .msg {
+      margin: 5px 0;
+      padding: 8px 12px;
+      background: #dcf8c6;
+      border-radius: 10px;
+      max-width: 80%;
+      align-self: flex-start;
+    }
+    .msg.me {
+      background: #cce5ff;
+      align-self: flex-end;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-screen active">
+    <h2>Masukkan Password</h2>
+    <input type="password" id="passInput" placeholder="Password" />
+    <button onclick="checkPass()">Masuk</button>
+  </div>
+
+  <div class="chat-screen">
+    <div class="top-bar">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9Q3Wj4q19bkqBBcN4DTeG7CnUHNDyTtlBdxdiSCvXUzeEzZzxWNnTgkzY&s=10">
+      <span>Roniii</span>
+    </div>
+    <audio id="backsong" src="https://s3.vocalremoveroak.com//input/origin/2024-12-01/yungkai-blueOfficialAudio.mp3" autoplay loop></audio>
+    <div id="messages" style="display: flex; flex-direction: column;"></div>
+    <input type="text" id="messageInput" placeholder="Tulis pesan..." />
+    <button onclick="sendMessage()">Kirim</button>
+    <button onclick="sendMissU()">I Miss U</button>
+    <audio id="missu" src="https://dm0qx8t0i9gc9.cloudfront.net/watermarks/audio/BsTwCwBHBjzwub4i4/audioblocks-wrong-incorrect-failure-answer-4_HFe7YQfLAwU_WM.mp3"></audio>
+  </div>
+
+  <!-- Firebase CDN -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCciX4h6ktx12QzErdxNhaBybf1wVADCyA",
+      authDomain: "chat-project-9db7a.firebaseapp.com",
+      databaseURL: "https://chat-project-9db7a-default-rtdb.firebaseio.com",
+      projectId: "chat-project-9db7a",
+      storageBucket: "chat-project-9db7a.firebasestorage.app",
+      messagingSenderId: "389148629520",
+      appId: "1:389148629520:web:11c9acdec4aa30d96ac895"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    function checkPass() {
+      const input = document.getElementById("passInput").value;
+      if(input === "anakfd") {
+        document.querySelector(".login-screen").classList.remove("active");
+        document.querySelector(".chat-screen").classList.add("active");
+      } else {
+        alert("Password salah!");
+      }
+    }
+
+    function sendMessage() {
+      const msg = document.getElementById("messageInput").value;
+      if (msg.trim() === "") return;
+      db.ref("chat").push({ from: "Roniii", text: msg, time: new Date().toLocaleTimeString() });
+      document.getElementById("messageInput").value = "";
+    }
+
+    function sendMissU() {
+      db.ref("chat").push({ from: "Roniii", text: "[I Miss U]", time: new Date().toLocaleTimeString(), missu: true });
+    }
+
+    const messagesDiv = document.getElementById("messages");
+    const missuSound = document.getElementById("missu");
+
+    db.ref("chat").on("child_added", (snap) => {
+      const data = snap.val();
+      const msgEl = document.createElement("div");
+      msgEl.className = "msg" + (data.from === "Roniii" ? " me" : "");
+      msgEl.textContent = `${data.from} [${data.time}]: ${data.text}`;
+      messagesDiv.appendChild(msgEl);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      if(data.missu && data.from !== "Roniii") missuSound.play();
+    });
+  </script>
+</body>
+</html>
 
