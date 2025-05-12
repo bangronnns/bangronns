@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Login</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #d3d3d3;
+    }
+
+    .popup {
+      background-color: #1c1c28;
+      color: white;
+      width: 90%;
+      max-width: 400px;
+      margin: 100px auto;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 14px;
+      color: #ccc;
+      margin-bottom: 10px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: none;
+      border-bottom: 2px solid #66aaff;
+      background: transparent;
+      color: white;
+      font-size: 16px;
+    }
+
+    .buttons {
+      text-align: right;
+      margin-top: 10px;
+    }
+
+    button {
+      padding: 8px 16px;
+      margin-left: 10px;
+      background: none;
+      border: none;
+      color: #66aaff;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<div class="popup">
+  <h2>Login</h2>
+  <p>https://admsol.nexxss.site memerlukan nama pengguna dan sandi.</p>
+  <label>Nama Pengguna</label>
+  <input type="text" placeholder="Nama Pengguna">
+  <label>Sandi</label>
+  <input type="password" placeholder="Sandi">
+  <div class="buttons">
+    <button onclick="alert('Batal')">Batal</button>
+    <button onclick="alert('Login ditekan')">Login</button>
+  </div>
+</div>
+
+</body>
+</html>
