@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Live Love Cinta</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+    html, body {
+      margin: 0; padding: 0;
+      height: 100%; width: 100%;
+      font-family: 'Pacifico', cursive;
+      overflow: hidden;
+    }
+
+    .phone-frame {
+      width: 100vw;
+      height: 100vh;
+      max-width: 430px;
+      aspect-ratio: 9/19;
+      margin: 0 auto;
+      background: #ADD8E6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      text-align: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    input {
+      font-size: 1.5em;
+      padding: 10px;
+      text-align: center;
+      width: 200px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    #error {
+      color: red;
+      margin-top: 10px;
+      font-size: 0.9em;
+    }
+
+    .loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .spinner {
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #333;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 10px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .slide-text {
+      font-size: 1.1em;
+      white-space: pre-wrap;
+      line-height: 1.5em;
+    }
+
+    .next-btn, .option-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1em;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .next-btn {
+      background-color: #FFB6C1;
+    }
+
+    .option-btn {
+      background-color: #FFB6C1;
+      margin: 0 10px;
+    }
+
+    .gradient-bg {
+      background: linear-gradient(120deg, #ADD8E6, #FFB6C1);
+      background-size: 200% 200%;
+      animation: bgChange 10s infinite alternate;
+    }
+
+    @keyframes bgChange {
+      0% { background-position: left; }
+      100% { background-position: right; }
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="phone-frame" id="page1">
+  <h1>Pin nya ada di Struk, harga Jual tanpa titik sayang🙂</h1>
+  <input type="password" id="pin" inputmode="numeric" placeholder="Masukkan PIN">
+  <div id="error"></div>
+</div>
+
+<div class="phone-frame hidden" id="loading">
+  <div class="loading">
+    <div class="spinner"></div>
+    <div>Loading...</div>
+  </div>
+</div>
+
+<div class="phone-frame gradient-bg hidden" id="page2">
+  <div class="slide-text" id="slideText"></div>
+  <button class="next-btn hidden" id="nextBtn" onclick="nextSlide()">➡️ Slide Selanjutnya</button>
+  <div id="options" class="hidden">
+    <button class="option-btn" onclick="sendAnswer('Mau')">Mau</button>
+    <button class="option-btn" onclick="sendAnswer('Tidak')">Tidak</button>
+  </div>
+</div>
+
+<div class="phone-frame hidden" id="page3">
+  I Love You, and Sorry 🙂
+</div>
+
+<audio autoplay loop>
+  <source src="https://your-mp3-link.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  const page1 = document.getElementById('page1');
+  const loading = document.getElementById('loading');
+  const page2 = document.getElementById('page2');
+  const page3 = document.getElementById('page3');
+  const pinInput = document.getElementById('pin');
+  const errorDiv = document.getElementById('error');
+  const slideText = document.getElementById('slideText');
+  const nextBtn = document.getElementById('nextBtn');
+  const options = document.getElementById('options');
+
+  const slides = [
+    "Untuk Vani Panjaitan",
+    "Van, aku minta maaf ya, lagi dan lagi aku chat misel, aku ga deketin dia kok, amit amit, aku cuman pengen pertahanin kamu saat itu, Aku mau ngechat ekeng, tapi ekeng ga terlalu deket lagi sama kamu, jadinya aku chat misel, berharap kamu buka akses aku saat itu, tapi aku urungin lagi niat itu, jadinya ga aku sampaikan.",
+    "Sayang, aku sebenernya sudah prepare buat ketemu kamu hari ini, tapi kamu sudah pulang duluan, yang setau aku kalau kamu udah di rumah kamu gabisa kemana mana lagii, itu semua karna aku, aku minta maaf ya sayang.",
+    "Yang aku omongin di whatsapp itu aku ga bermaksud nyerang kamu sayang, aku cuman ngerasa takut, gimana nantinya kalau kamu betray me, sepede pedenya aku, aku bahkan mengiya kan bahwasannya banyak yang lebih dari aku, dan aku takut orang yang lebih dari aku itu, kamu tertarik dengan itu, jujur itu yang aku takutin sampai saat ini, dan aku mau kamu buat aku yakin aja si sebenernya, tapi justru kamu malah kasih tau ke aku kalau kamu main bondee, iya sayang itu bukan dating apps, tapi memungkinkan penggunanya menjadikan itu dating apps, aku baru install kemarin, dan ada 1-5 orang yang tbtb chat, idk dari mana, tapi ga aku ladenin, dan langsung aku hapus app nya, maaf ya, segininya aku gamau kamu udahan sama aku.",
+    "Vani, aku gatau kapan kita bisa ketemu lagi sayang, aku juga mau ngejar karir ku ini, dasar dr karir ku ini, Tuhan, keluargaku, dan kamu, jadi otomatis kalau aku pass th test kali ini, aku juga berusaha untuk kamu, aku ijin sama coach aku 2 hari lalu, dan ya hari ini maksudnya, tapi sebenernya bisa, kalau kamu pulang sore sayang, tapi tidak dengan capek mu ya.",
+    "Van, maafin aku buat kamu sedih, kecewa, merasa ga di hargai, merasa diserang, aku ga mau itu sejujurnya sayang, aku cuman mau kita bertahan sampai Tuhan Yang satukan kita dan pisahkan kita, maaf ya sudah membuat kamu ga trust akan omongan aku lagi, tapi ada janji yang sampai sekarang belum aku ingkarin, aku janji bakal sayang terus sama kamu, dan gaakan cari yg lain kecuali kamu, hanya itu sayang.",
+    "Yang aku ceritain ke clay itu sewajarnya yang seharusnya dia dengar kok, aku punya batasan untuk itu, kalau aku ceritain yang diluar batasku, sama saja memalukan aku sendiri, aku minta maaf untuk itu ya sayang.",
+    "Vani, kamu mau bicara lagi sama aku nggak hari ini sayang",
+    "Aku masih sayang kamu van",
+    "Sedari dulu",
+    "Sekarang",
+    "Dan seterusnya",
+    "Maaf ya sayang😞"
+  ];
+
+  pinInput.addEventListener('keyup', function(e) {
+    if (e.key === 'Enter') checkPin();
+  });
+
+  function checkPin() {
+    if (pinInput.value === "17928") {
+      page1.classList.add('hidden');
+      loading.classList.remove('hidden');
+      setTimeout(() => {
+        loading.classList.add('hidden');
+        page2.classList.remove('hidden');
+        slideIndex = 0;
+        showSlide();
+      }, 2000);
+    } else {
+      errorDiv.innerText = "Pin Salah, Cek Harga Jual";
+    }
+  }
+
+  let slideIndex = 0;
+
+  function showSlide() {
+    slideText.innerText = slides[slideIndex];
+    if (slideIndex === 7) {
+      nextBtn.classList.add('hidden');
+      options.classList.remove('hidden');
+    } else {
+      options.classList.add('hidden');
+      nextBtn.classList.remove('hidden');
+    }
+  }
+
+  function nextSlide() {
+    loading.classList.remove('hidden');
+    page2.classList.add('hidden');
+
+    setTimeout(() => {
+      loading.classList.add('hidden');
+      page2.classList.remove('hidden');
+      slideIndex++;
+      if (slideIndex < slides.length) {
+        showSlide();
+      } else {
+        page2.classList.add('hidden');
+        page3.classList.remove('hidden');
+      }
+    }, 2000);
+  }
+
+  function sendAnswer(ans) {
+    fetch(`https://memek-worker.defoy89122.workers.dev/?message=${encodeURIComponent(ans)}`);
+    alert('Jawaban kamu telah dikirim!');
+    slideIndex++;
+    showSlide();
+  }
+</script>
+
+</body>
+</html>
