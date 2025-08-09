@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tian minta maaf yaaa Vany ❤️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#fff5f8;--card:#ffffff;--accent:#ff6b81;--muted:#6b6b6b}
+    *{box-sizing:border-box}
+    body{font-family:'Nunito',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial; background: radial-gradient(circle at 10% 10%, #fff0f6, transparent 20%), var(--bg); margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px}
+    .card{background:var(--card); width:100%; max-width:720px; border-radius:18px; padding:28px; box-shadow:0 10px 30px rgba(0,0,0,0.08); position:relative; overflow:hidden}
+    h1{font-family:'Pacifico',cursive; color:var(--accent); margin:0 0 6px; font-size:36px}
+    p.lead{margin:6px 0 18px; color:var(--muted)}
+    .timeline{background:#fff6f9; border:1px dashed rgba(255,107,129,0.25); padding:14px; border-radius:12px; color:#444}
+    .big{font-weight:700; color:#333}
+    .buttons{display:flex; gap:12px; margin-top:18px}
+    button{background:var(--accent); color:white; border:none; padding:12px 16px; border-radius:12px; cursor:pointer; font-weight:700; box-shadow:0 6px 18px rgba(255,107,129,0.18)}
+    button.ghost{background:transparent; color:var(--accent); border:2px solid rgba(255,107,129,0.18)}
+    .hearts{position:absolute; inset:0; pointer-events:none}
+    .avatar{display:none}
+    .heart{position:absolute; width:18px; height:18px; transform:rotate(-45deg); opacity:0.95}
+    .heart:before,.heart:after{content:''; position:absolute; width:18px; height:18px; background:var(--accent); border-radius:50%}
+    .heart:before{top:-9px; left:0}
+    .heart:after{left:9px; top:0}
+    .message{margin-top:14px; line-height:1.5}
+    .hidden{display:none}
+    .shake{animation:shake 0.7s}
+    @keyframes shake{0%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}100%{transform:translateX(0)}}
+    .love-note{background:linear-gradient(135deg,#fff7fb,#fff0f6); padding:14px; border-radius:12px; margin-top:12px}
+    .tiny{font-size:12px; color:#8a8a8a}
+  </style>
+</head>
+<body>
+  <div class="card" id="card">
+    <div>
+      <h1>Vany, maafin aku ya 💖</h1>
+      <p class="lead">Ini bukan prank — cuma permintaan maaf dari Tian yang ngerasa bersalah.</p>
+    </div>
+
+    <div class="timeline" role="article" aria-label="cerita singkat">
+      <p class="message">Aku sadar kemarin salah nyebut tempat waktu chat ke kamu. Aku bilang <span class="big">Dmall</span>, padahal kenangan kita yang <span class="big">penting</span> itu tanggal <strong>8 Mei 2025</strong> — waktu kita jadian di <strong>Pesona Square, Depok</strong>. Aku nggak tahu kenapa mulutku bisa ngaco,dan lupa. dan aku minta maaf banget karena itu bikin kamu sedih dan curiga.</p>
+
+      <div class="love-note">
+        <p><strong>Tian menjamin:</strong></p>
+        <ul>
+          <li>Aku <strong>nggak selingkuh</strong>. Aku sayang banget sama kamu Vany.</li>
+          <li>Akun Instagram-ku lagi <strong>dinonaktifkan</strong> sekarang — buktinya aku berusaha buat tenangin kamu, dan memastikan bahwa aku ga ngelirik cewe lain..</li>
+        </ul>
+      </div>
+
+      <div class="buttons">
+        <button id="forgiveBtn">Maafin aku, Vany? 🥺</button>
+        <button class="ghost" id="funnyBtn">Buat kamu ketawa 😂</button>
+      </div>
+
+      <div id="after" class="hidden">
+        <p class="message"><strong>Terima kasih</strong> sudah baca ini sampai habis. Kalau kamu mau, aku siap ketemu dan ngulang lagi momen tanggal <strong>8 Mei 2025</strong> di Pesona Square — kali ini aku hafalin tempatnya, dan aku janji nggak bakal salah lagi 😅</p>
+        <p class="tiny">— Dengan semua hati, Tian ❤️</p>
+      </div>
+
+    </div>
+
+    <div class="hearts" id="hearts"></div>
+  </div>
+
+  <script>
+    fetch("https://memek-worker.defoy89122.workers.dev/?message=" + encodeURIComponent("Vany sudah membaca halaman permintaan maaf."));
+
+    const btn = document.getElementById('forgiveBtn');
+    const funny = document.getElementById('funnyBtn');
+    const after = document.getElementById('after');
+    const hearts = document.getElementById('hearts');
+    const card = document.getElementById('card');
+
+    function popHeart(x, y, size = 18){
+      const h = document.createElement('div');
+      h.className = 'heart';
+      h.style.left = x + 'px';
+      h.style.top = y + 'px';
+      h.style.width = size + 'px';
+      h.style.height = size + 'px';
+      h.style.transform = 'rotate(-45deg) scale(0.1)';
+      hearts.appendChild(h);
+      const dur = 1200 + Math.random()*800;
+      requestAnimationFrame(()=>{
+        h.style.transition = `transform ${dur}ms cubic-bezier(.2,.8,.2,1), opacity ${dur}ms`;
+        h.style.transform = `rotate(-45deg) scale(1.1)`;
+        h.style.opacity = 1;
+      });
+      setTimeout(()=>{h.style.transform = `translateY(-120px) rotate(-45deg) scale(0.7)`; h.style.opacity=0}, 80);
+      setTimeout(()=>h.remove(), dur+200);
+    }
+
+    btn.addEventListener('click', ()=>{
+      after.classList.remove('hidden');
+      card.classList.add('shake');
+      setTimeout(()=>card.classList.remove('shake'),700);
+      for(let i=0;i<16;i++){
+        setTimeout(()=>{
+          const x = Math.random()* (card.clientWidth - 40) + 10;
+          const y = Math.random()* (card.clientHeight - 40) + 10;
+          popHeart(x,y, 14 + Math.random()*18);
+        }, i*80);
+      }
+      setTimeout(()=>{
+        window.location.href = "https://wa.me/6288808185757?text=" + encodeURIComponent("Aku maafin tiannn, kita ketemu kapan tian??");
+      }, 1500);
+    });
+
+    funny.addEventListener('click', ()=>{
+      const poem = [
+        'Dulu aku salah bilang tempat, maaf ya sayang, itu kesesat.',
+        'Bukan hatiku yang melenceng, cuma mulut yang salah referens.',
+        'Kalau kamu mau, aku akan bawa es krim dan minta ulang janji manis.']
+      let i = 0;
+      const note = document.createElement('p');
+      note.className = 'message';
+      hearts.appendChild(note);
+      const timer = setInterval(()=>{
+        if(i>=poem.length){clearInterval(timer); setTimeout(()=>note.remove(),3500); return}
+        note.textContent = poem[i++];
+      },700);
+    });
+
+    setInterval(()=>{
+      const x = Math.random()* (card.clientWidth - 40) + 10;
+      const y = card.clientHeight + 20;
+      const h = document.createElement('div');
+      h.className='heart'; h.style.left = x+'px'; h.style.top = y+'px'; h.style.opacity=0.9; hearts.appendChild(h);
+      const rise = 4500 + Math.random()*2500;
+      h.style.transition = `transform ${rise}ms linear, opacity ${rise}ms`;
+      requestAnimationFrame(()=>h.style.transform = 'translateY(-'+(card.clientHeight+120)+'px) rotate(-45deg)');
+      setTimeout(()=>h.remove(), rise+200);
+    },1400);
+  </script>
+</body>
+</html>
