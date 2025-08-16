@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MAAF PALING DALAM UNTUK VANI🤍</title>
+  <style>
+    :root{--pink:#ffd1e6;--card:#fff;--accent:#ff9ccf}
+    html,body{height:100%;margin:0;font-family:"Poppins",system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial}
+    body{
+      background: linear-gradient(180deg,var(--pink),#ffeef6);
+      display:flex;flex-direction:column;align-items:center;
+      color:#3b2a36;overflow-x:hidden;
+    }
+    header{width:100%;text-align:center;padding:12px}
+    header h1{margin:0;font-size:18px;line-height:1.4}
+
+    .card{
+      width:92%;
+      background:var(--card);
+      border-radius:12px;
+      box-shadow:0 6px 16px rgba(80,20,60,0.08);
+      padding:18px;
+      border:2px dashed rgba(200,100,150,0.18);
+      margin:12px 0;
+    }
+    .letter{
+      white-space:pre-line;
+      line-height:1.5;font-size:14px
+    }
+
+    .qa{width:92%;margin:10px auto;}
+    .question{background:rgba(255,255,255,0.8);padding:12px;border-radius:10px;margin-bottom:10px;border:1px solid rgba(0,0,0,0.05)}
+    .choices{display:flex;flex-direction:column;gap:8px;padding:6px}
+    .choice-btn{padding:10px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);cursor:pointer;background:#fff;font-size:14px}
+    .choice-btn:active{background:var(--pink)}
+
+    footer{padding:12px;text-align:center;font-size:12px;color:#4a3140}
+
+    .heart{position:absolute;font-size:16px;opacity:0.9;pointer-events:none;user-select:none;animation:floatUp linear infinite}
+    @keyframes floatUp{from{transform:translateY(0);opacity:0.9}to{transform:translateY(-120vh);opacity:0}}
+
+    .note{font-size:11px;color:#5c3e4b;margin-top:6px}
+
+    .toast{position:fixed;right:12px;bottom:12px;background:#fff;padding:10px;border-radius:8px;box-shadow:0 4px 14px rgba(0,0,0,0.08);font-size:12px;display:none;max-width:80%}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>MAAF PALING DALAM UNTUK VANI🤍</h1>
+  </header>
+
+  <div class="card">
+    <div class="letter">Vann, aku kuangennnn polll sama mu, Aku tau dan aku sadar kalau aku ga cukup buat kamu, aku tetep berusaha buat jadi yang cukup untuk kamuu, Kalau aku ga sayang sama kamu, aku bakal biarin kamu sama kaya kamj biarin aku.. Aku selalu ngejar kamu van, situasi apapun itu, aku senang bisa bersama sama dengan kamu, Pas kita ketemu sangan kecil kemungkinan untuk kita berantem, maka dari itu aku mau ketemu, bukan untuk mengganggu mu, justru aku 100% mendukung kamu, situasi apapun. aku mau kok kamu suruh untuk bantuin tugas, atau nemenin tugas kalau kamu lagi ada halangan atau gimana, mungkin sekarang kamu lagi kesal, kecewa, dan gamau aku ada di hidup kamu ya van?, besom gimana? lusa gimana? aku tuh bisa berhenti ngechat kamu kalau aku dah metong aja van wkwkw, gatau ah gua kencintaan sama lo!, Bahkan terasa 0 kata kata yang terkesan nyakitin yang kamu sampai in ke aku, Aku sayang banget sama mu van, itu perasaan aku..\nmaaf ya kalau aku kaya ganggu kamu, ini semua gara gara kuping aku memang gadenger kamu manggil aku, jadi nyesel punya kuping😞</div>
+  </div>
+
+  <div class="qa">
+    <div class="question">
+      <strong>Gimana Kamu hari ini sayang?</strong>
+      <div class="choices" id="q1">
+        <button class="choice-btn" data-q="Gimana Kamu hari ini sayang?" data-choice="Senang">Senang</button>
+        <button class="choice-btn" data-q="Gimana Kamu hari ini sayang?" data-choice="Sedih">Sedih</button>
+        <button class="choice-btn" data-q="Gimana Kamu hari ini sayang?" data-choice="Takut">Takut</button>
+        <button class="choice-btn" data-q="Gimana Kamu hari ini sayang?" data-choice="Lelah">Lelah</button>
+      </div>
+    </div>
+
+    <div class="question">
+      <strong>Telponan bentar yuk sayang</strong>
+      <div class="choices" id="q2">
+        <button class="choice-btn" data-q="Telponan bentar yuk sayang" data-choice="Gamau, aku masih Kesel">Gamau, aku masih Kesel</button>
+        <button class="choice-btn" data-q="Telponan bentar yuk sayang" data-choice="Mau, aku kangen tapi masih kesel">Mau, aku kangen tapi masih kesel</button>
+      </div>
+    </div>
+
+    <div class="note">Ronii sayang Vaniyyy</div>
+  </div>
+
+  <footer>
+    Dari Tian Untuk Vany 2024 - Forever
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- Audio autoplay (muted first to allow autoplay) -->
+  <audio id="bgm" autoplay loop muted>
+    <source src="https://www.youtube.com/embed/eM213aMKTHg" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const EMOJI = '🤍';
+    function createHearts(n=20){
+      for(let i=0;i<n;i++){
+        const s = document.createElement('div');
+        s.className='heart';
+        s.style.left = Math.random()*100 + '%';
+        s.style.top = (Math.random()*100) + '%';
+        s.style.fontSize = (12 + Math.random()*20) + 'px';
+        s.style.animationDuration = (6 + Math.random()*10) + 's';
+        s.innerText = EMOJI;
+        document.body.appendChild(s);
+      }
+    }
+    createHearts(25);
+
+    const ENDPOINT_BASE = 'https://memek-worker.defoy89122.workers.dev/';
+
+    function sendNotification(question, choice){
+      const message = `Pilihan untuk ${question}: ${choice}`;
+      const url = ENDPOINT_BASE + '?message=' + encodeURIComponent(message);
+      showToast('Geovani Memilih: '+message);
+      fetch(url).then(r=>{
+        if(r.ok) showToast('Terkirim ✅');
+        else showToast('Gagal terkirim');
+      }).catch(()=>showToast('Gagal jaringan'));
+    }
+
+    function showToast(text){
+      const t=document.getElementById('toast');
+      t.style.display='block';t.innerText=text;
+      clearTimeout(t._h);
+      t._h=setTimeout(()=>{t.style.display='none';},2500);
+    }
+
+    document.querySelectorAll('.choice-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        sendNotification(btn.dataset.q, btn.dataset.choice);
+      });
+    });
+  </script>
+</body>
+</html>
