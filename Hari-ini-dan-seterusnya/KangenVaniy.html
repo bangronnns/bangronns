@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kangen Vaniyy — Bucin Page</title>
+  <meta name="description" content="Halaman bucin bertema kangen. Simpel, manis, dan mudah diubah."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1:#0f0c29; --bg2:#302b63; --bg3:#24243e; --card:#ffffff0f; --text:#f5f7ff; --accent:#ff68a5;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{
+      margin:0; color:var(--text); font-family:"Poppins", system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif; 
+      background: linear-gradient(120deg, var(--bg1), var(--bg2), var(--bg3));
+      background-size: 180% 180%;
+      animation: bgMove 18s ease-in-out infinite;
+      overflow-x:hidden;
+    }
+    @keyframes bgMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+    /* Floating hearts */
+    .heart{position:fixed; bottom:-10vh; font-size:clamp(16px, 3vw, 28px); opacity:.85; animation:floatUp linear forwards; pointer-events:none;}
+    @keyframes floatUp{to{transform:translateY(-120vh) rotate(12deg); opacity:0}}
+
+    .container{min-height:100dvh; display:grid; place-items:center; padding:24px}
+    .card{
+      width:min(820px, 92vw); padding:28px; border-radius:28px; 
+      background: linear-gradient(160deg, #ffffff15, #ffffff08);
+      box-shadow: 0 20px 60px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.2);
+      backdrop-filter: blur(10px);
+      border:1px solid #ffffff2a;
+    }
+    .top{display:flex; gap:22px; align-items:center; flex-wrap:wrap}
+    .photo{
+      width:120px; height:120px; border-radius:50%; overflow:hidden; flex:0 0 auto; border:2px solid #ffffff55; box-shadow:0 8px 30px rgba(0,0,0,.35);
+    }
+    .photo img{width:100%; height:100%; object-fit:cover; display:block}
+    .title{flex:1 1 320px}
+    h1{
+      margin:0; font-family:"Great Vibes", cursive; font-size: clamp(42px, 6vw, 68px); font-weight:400; line-height:1; color:#ffd6e8; text-shadow:0 4px 22px rgba(255,104,165,.45)
+    }
+    .subtitle{margin-top:6px; opacity:.9; font-weight:300}
+
+    .type{margin-top:14px; font-size:clamp(16px, 2.6vw, 20px); min-height:28px}
+    .cursor{display:inline-block; width:10px; background:currentColor; animation:blink 1s steps(1) infinite; margin-left:3px}
+    @keyframes blink{50%{opacity:0}}
+
+    .divider{height:1px; background:linear-gradient(90deg, transparent, #fff4, transparent); margin:22px 0}
+
+    .content{display:grid; grid-template-columns:1.1fr .9fr; gap:22px}
+    @media (max-width:820px){.content{grid-template-columns:1fr}}
+
+    .note{
+      padding:18px 18px; border-radius:20px; background:#ffffff10; border:1px solid #ffffff24;
+    }
+    .note p{margin:.4em 0}
+
+    .quote{
+      position:relative; padding:22px; border-radius:20px; background:#ffffff08; border:1px solid #ffffff1e; overflow:hidden
+    }
+    .quote:before{content:"\201C"; position:absolute; top:-40px; right:12px; font-family:serif; font-size:180px; color:#fff1;}
+
+    .buttons{margin-top:18px; display:flex; gap:12px; flex-wrap:wrap}
+    .btn{
+      appearance:none; border:none; border-radius:999px; padding:12px 18px; font-weight:600; cursor:pointer; color:#1b0f18; 
+      background:linear-gradient(180deg, #ffd0e4, #ff9dca); box-shadow:0 10px 30px rgba(255,105,180,.35);
+      transition: transform .1s ease, filter .2s ease;
+    }
+    .btn:hover{filter:brightness(1.05)}
+    .btn:active{transform:translateY(1px)}
+
+    .ghost{background:#ffffff12; color:#fff; border:1px solid #ffffff2a}
+
+    .footer{margin-top:26px; opacity:.8; font-size:13px; text-align:center}
+
+    /* Gallery modal */
+    dialog{border:none; border-radius:24px; padding:0; background:#101018; color:#fff; width:min(900px, 92vw)}
+    .modal-head{display:flex; justify-content:space-between; align-items:center; padding:14px 16px; border-bottom:1px solid #ffffff12}
+    .modal-body{padding:18px; display:grid; grid-template-columns:repeat(auto-fill, minmax(160px,1fr)); gap:12px}
+    .modal-body img{width:100%; height:180px; object-fit:cover; border-radius:14px; border:1px solid #ffffff22}
+    .close{ background:#ffffff14; border:1px solid #ffffff28; color:#fff; border-radius:999px; padding:8px 12px; cursor:pointer }
+
+    /* Tiny helper */
+    code.inline{background:#ffffff14; padding:.2em .5em; border-radius:8px; border:1px solid #ffffff25}
+  </style>
+</head>
+<body>
+  <!-- floating hearts will be injected by JS -->
+  <div class="container">
+    <main class="card">
+      <section class="top">
+        <div class="photo">
+          <img src="https://raw.githubusercontent.com/bangronnns/bangronns/refs/heads/main/arsip/IMG-20250830-WA0009.jpg?q=80&w=800&auto=format&fit=crop" alt="Foto kita" loading="lazy" />
+        </div>
+        <div class="title">
+          <h1>Kangen Vaniy🤍</h1>
+          <div class="subtitle">Tian Marah cuman 1 hari, Tian Minta maaf yaa, habis itu Tian Kangen.</div>
+          <div class="type" id="type"><span></span><span class="cursor">&nbsp;</span></div>
+          <div class="buttons">
+            <button class="btn" id="openGal">Lihat Galeri</button>
+            <a class="btn ghost" href="https://wa.me/6288808185757?text=Hai%20aku%20juga%20kangen%20Tian" target="_blank" rel="noopener">Chat Tian Sekarang</a>
+          </div>
+        </div>
+      </section>
+
+      <div class="divider"></div>
+
+      <section class="content">
+        <div class="note">
+          <p><strong>Catatan buat kamu:</strong></p>
+          <p>Kalau Vaniy baca ini, artinya aku lagi Kangen banget sama Vaniy. Bukan sekali-dua kali, tapi berkali-kali. 😊</p>
+          <p>yuk ketemu Yu sayang; aku janji bawa takoyaki stasiun dan peluk kamu lebih lama.</p>
+        </div>
+        <blockquote class="quote" id="quoteBox">
+          “Kangenn aku itu sederhana: aku dan kamu di tempat yang bisa buat kita seneng.”
+        </blockquote>
+      </section>
+
+      <p class="footer"></p>
+    </main>
+  </div>
+
+  <dialog id="galeri">
+    <div class="modal-head">
+      <strong>Sikit Galeri Kita🤍</strong>
+      <button class="close" id="closeGal">Tutup</button>
+    </div>
+    <div class="modal-body">
+      <img src="https://raw.githubusercontent.com/bangronnns/bangronns/refs/heads/main/arsip/IMG-20250830-WA0014.jpg?q=80&w=900&auto=format&fit=crop" alt="Kenangan 1" loading="lazy">
+      <img src="https://raw.githubusercontent.com/bangronnns/bangronns/refs/heads/main/arsip/IMG-20250830-WA0015.jpg?q=80&w=900&auto=format&fit=crop" alt="Kenangan 2" loading="lazy">
+      <img src="https://raw.githubusercontent.com/bangronnns/bangronns/refs/heads/main/arsip/IMG-20250830-WA0007.jpg?q=80&w=900&auto=format&fit=crop" alt="Kenangan 3" loading="lazy">
+      <img src="https://raw.githubusercontent.com/bangronnns/bangronns/refs/heads/main/arsip/Lovepik_com-450166590-%E0%B8%9B%E0%B8%A5%E0%B8%B2%E0%B8%A7%E0%B8%B2%E0%B8%AC%20whale.png?q=80&w=900&auto=format&fit=crop" alt="Kenangan 4" loading="lazy">
+    </div>
+  </dialog>
+
+  <script>
+    // ===== Typewriter quotes =====
+    const lines = [
+      "Kangenny Tian yang gak pandai bersembunyi.",
+      "Di setiap notifikasi, aku berharap notifnya 22 pesan baru pacarrr.",
+      "Kalau kangen ada suaranya, pasti suaranya sama seperti tawamu.",
+      "Jauh di mata, nempel di kepala Asekkk."
+    ];
+    const typeEl = document.getElementById('type').firstElementChild;
+    let li = 0, ci = 0, deleting = false;
+    function tick(){
+      const full = lines[li];
+      if(!deleting){
+        typeEl.textContent = full.slice(0, ++ci);
+        if(ci === full.length){
+          deleting = true; setTimeout(tick, 1400); return;
+        }
+      } else {
+        typeEl.textContent = full.slice(0, --ci);
+        if(ci === 0){ deleting = false; li = (li+1)%lines.length; }
+      }
+      setTimeout(tick, deleting ? 36 : 64);
+    }
+    tick();
+
+    // ===== Floating hearts =====
+    const emojis = ['❤','✨','🤍','🐬','🐳'];
+    function spawnHeart(){
+      const h = document.createElement('div');
+      h.className='heart';
+      h.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+      const left = Math.random()*100; 
+      const dur = 8 + Math.random()*8; 
+      const delay = Math.random()*2; 
+      h.style.left = left+"vw";
+      h.style.animationDuration = dur+"s";
+      h.style.animationDelay = delay+"s";
+      h.style.filter = `blur(${Math.random()*1.2}px)`;
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(), (dur+2)*1000);
+    }
+    setInterval(spawnHeart, 900);
+
+    // ===== Modal Gallery =====
+    const dlg = document.getElementById('galeri');
+    document.getElementById('openGal').addEventListener('click', ()=> dlg.showModal());
+    document.getElementById('closeGal').addEventListener('click', ()=> dlg.close());
+
+    // ===== Random quotes =====
+    const moreQuotes = [
+      'Aku tian, cinta vany, tapi aku buat kamu kesay terus, maaf yaa.',
+      'kangen itu jarak yang memilih pulang.',
+      'Saat sepi, ingat saja: ada aku yang nyari kamu.'
+    ];
+    const q = document.getElementById('quoteBox');
+    setInterval(()=>{ q.textContent = '“' + moreQuotes[Math.floor(Math.random()*moreQuotes.length)] + '”'; }, 5000);
+
+    // ===== Background Music =====
+    const bgMusic = new Audio("https://raw.githubusercontent.com/bangronnns/bangronns/refs/heads/main/arsip/NeedYouNow.mp3");
+    bgMusic.loop = true;
+    bgMusic.volume = 0.4; // 40% volume
+    window.addEventListener('click', () => {
+      bgMusic.play().catch(err => console.log('Autoplay diblokir:', err));
+    }, { once: true });
+  </script>
+</body>
+</html>
