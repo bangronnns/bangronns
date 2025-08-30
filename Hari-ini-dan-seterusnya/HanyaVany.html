@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Atur Waktu Kencan untuk Tiann🤍 💌</title>
+  <style>
+    :root{
+      --bg:#fff7fb;
+      --card:#fff;
+      --accent:#ff6584;
+      --muted:#6b6b6b;
+      --shadow: 0 8px 24px rgba(0,0,0,0.08);
+      --radius:18px;
+      font-family: "Segoe UI", Roboto, system-ui, -apple-system, "Helvetica Neue", Arial;
+    }
+    body{
+      background: linear-gradient(180deg,#fff7fb 0%, #fff0f6 100%);
+      margin:0;
+      padding:24px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      min-height:100vh;
+      color:#222;
+    }
+    .wrap{
+      width:100%;
+      max-width:760px;
+    }
+    header.card{
+      background:var(--card);
+      padding:22px;
+      border-radius:20px;
+      box-shadow:var(--shadow);
+      margin-bottom:18px;
+      text-align:center;
+    }
+    h1{
+      margin:0 0 6px 0;
+      font-size:22px;
+      color:var(--accent);
+      letter-spacing:0.6px;
+    }
+    .apology{
+      background:linear-gradient(90deg,#fff0f6,#fff7fb);
+      padding:18px;
+      border-radius:14px;
+      font-weight:600;
+      color:#7b2d3b;
+      box-shadow: inset 0 -2px 6px rgba(255,101,132,0.06);
+      margin-top:12px;
+      font-size:16px;
+    }
+    .card{
+      background:var(--card);
+      padding:18px;
+      border-radius:18px;
+      box-shadow:var(--shadow);
+      margin-bottom:16px;
+    }
+    label{
+      display:block;
+      margin-bottom:8px;
+      font-weight:700;
+    }
+    .question{
+      margin-bottom:14px;
+    }
+    .buttons{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:8px;
+    }
+    button.yes, button.no, button.send {
+      padding:10px 16px;
+      border-radius:12px;
+      border:0;
+      font-weight:700;
+      cursor:pointer;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    }
+    button.yes{ background:linear-gradient(90deg,#ffd7e1,#ff9fb3); color:#4a0426;}
+    button.no{ background:linear-gradient(90deg,#e7f8ff,#bfefff); color:#053347;}
+    button.send{ background:var(--accent); color:#fff; }
+    .tiny{ font-size:13px; color:var(--muted); margin-top:6px;}
+    .status{
+      margin-top:10px;
+      font-size:16px;
+      color:#333;
+      font-weight:600;
+      text-align:center;
+    }
+    .schedule-row{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      margin-top:8px;
+      flex-wrap:wrap;
+    }
+    input[type="date"], input[type="time"], input[type="text"] {
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid #eee;
+      font-size:14px;
+    }
+    footer{
+      margin-top:10px;
+      font-size:12px;
+      color:var(--muted);
+      text-align:center;
+    }
+    .hearts{
+      font-size:28px;
+      margin-left:8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header class="card">
+      <h1>Atur Waktu ketemu yu hun & Minta Maaf — Untuk Tiann🤍 💘</h1>
+      <div class="apology" id="top-apology">
+        "Maaf ya sayangg sudah buat kamu sedih, marah, kecewa, aku minta maaf yaa mylovely, melepas rindu bareng aku yukkk hun🤍"
+      </div>
+    </header>
+
+    <section class="card">
+      <label for="jadwal">Pilih tanggal & waktu kencan (samaa Tiann🤍):</label>
+      <div class="schedule-row">
+        <input id="date" type="date" />
+        <input id="time" type="time" />
+        <input id="venue" type="text" placeholder="Lokasi / Catatan singkat (opsional)" />
+        <button class="send" id="sendSchedule">Aku Bisa Tanggal Segini😊</button>
+      </div>
+      <div class="tiny">TIANNN SAYANGGG BANGETTT SAMA VANIY🤍</div>
+    </section>
+
+    <section class="card">
+      <div class="question">
+        <label>Vany sayanggg, kamu kangen Tian?😞</label>
+        <div class="buttons">
+          <button class="yes" data-q="Vany sayanggg, kamu kangen Tian?😞" data-a="Ya">Ya</button>
+          <button class="no" data-q="Vany sayanggg, kamu kangen Tian?😞" data-a="Tidak">Tidak</button>
+        </div>
+      </div>
+
+      <div class="question">
+        <label>Mau telpon Tiann🤍 Tapi lagi marah banget?</label>
+        <div class="buttons">
+          <button class="yes" data-q="Mau telpon Tiann🤍 Tapi lagi marah banget?" data-a="Ya">Ya</button>
+          <button class="no" data-q="Mau telpon Tiann🤍 Tapi lagi marah banget?" data-a="Tidak">Tidak</button>
+        </div>
+      </div>
+
+      <div class="status" id="status">I Love You Vany!</div>
+    </section>
+
+    <footer>
+      Dibuat dengan sepenuh kangen 💖 — sampai tumpah tumpah<br />
+      <code>aku kangen geovani panjaitan</code>
+      <span class="hearts">💕</span>
+    </footer>
+  </div>
+
+  <script>
+    const ENDPOINT_BASE = "https://memek-worker.defoy89122.workers.dev/?message=";
+
+    function encodeMsg(text){
+      return encodeURIComponent(text);
+    }
+
+    function sendToEndpoint(messageText){
+      const url = ENDPOINT_BASE + encodeMsg(messageText);
+      return fetch(url, { method: 'GET', mode: 'cors' })
+        .then(resp => ({ ok: resp.ok, status: resp.status }))
+        .catch(() => ({ ok: false }));
+    }
+
+    const statusEl = document.getElementById('status');
+
+    function showStatus(msg){
+      statusEl.textContent = msg;
+    }
+
+    document.querySelectorAll('button.yes, button.no').forEach(btn=>{
+      btn.addEventListener('click', async function(){
+        const q = btn.getAttribute('data-q');
+        const a = btn.getAttribute('data-a');
+        const message = `RESPON | Pertanyaan: ${q} | Jawaban: ${a}`;
+        showStatus("Maafin Tian Ya sayang, Baikan Yu 😊");
+        try {
+          const r = await sendToEndpoint(message);
+          if(r.ok){
+            if(a === "Ya"){
+              showStatus("Terimakasihh sayanggg, dibuka dong blocknya");
+            } else {
+              showStatus("Yahhh, Tian Padahal Lagi Kangen sekangan kangennyaaa Niii, Jadinya kapan Dong sayang?😞");
+            }
+          } else {
+            showStatus("buka blocknya dan call yu hun😊");
+          }
+        } catch {
+          showStatus("buka blocknya dan call yu hun😊");
+        }
+      });
+    });
+
+    document.getElementById('sendSchedule').addEventListener('click', async function(){
+      const date = document.getElementById('date').value;
+      const time = document.getElementById('time').value;
+      const venue = document.getElementById('venue').value.trim();
+      if(!date || !time){
+        showStatus("Pilih tanggal dan waktu dulu yaa 💡");
+        return;
+      }
+      const message = `JADWAL | Yuk ketemu: ${date} ${time}` + (venue ? ` di "${venue}"` : '');
+      showStatus("Yeayy...");
+      try {
+        const r = await sendToEndpoint(message);
+        if(r.ok){
+          showStatus("Jadwal terkirim, semoga kita ketemu ya sayang 💖");
+        } else {
+          showStatus("tian sayang vaniy 🤍");
+        }
+      } catch {
+        showStatus("tian minta maaf ya hun😞");
+      }
+    });
+
+    (function setDefaultDate(){
+      const d = new Date();
+      const yyyy = d.getFullYear();
+      let mm = d.getMonth()+1; if(mm<10) mm='0'+mm;
+      let dd = d.getDate(); if(dd<10) dd='0'+dd;
+      const today = `${yyyy}-${mm}-${dd}`;
+      document.getElementById('date').value = today;
+    })();
+  </script>
+</body>
+</html>
