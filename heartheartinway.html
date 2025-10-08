@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hati-Hati di Jalan ya Sayangg 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1: #ffd1dc; /* soft pink */
+      --bg2: #ffe3b3; /* warm peach */
+      --accent: #ff6b81; /* rosy */
+      --glass: rgba(255,255,255,0.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,'Helvetica Neue',Arial}
+    body{
+      background: linear-gradient(135deg,var(--bg1),var(--bg2));
+      display:flex;align-items:center;justify-content:center;padding:2rem;
+      -webkit-font-smoothing:antialiased;
+    }
+    .card{
+      width:min(720px,96%);
+      background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.45));
+      border-radius:20px; padding:2.5rem; box-shadow:0 10px 30px rgba(0,0,0,0.08);
+      backdrop-filter: blur(6px);
+      position:relative; overflow:hidden;
+      text-align:center;
+    }
+    h1{
+      font-family:'Pacifico', cursive; margin:0; font-size: clamp(2.2rem, 5vw, 3.6rem);
+      color: #7b133a; letter-spacing:1px; text-shadow:0 4px 18px rgba(123,19,58,0.12);
+    }
+    p.lead{
+      margin:0.6rem 0 1.2rem 0; font-weight:600; color:#6b2940; opacity:0.95;
+    }
+    .heart-row{display:flex;gap:0.4rem;justify-content:center;margin-top:0.8rem}
+    .heart{width:20px;height:20px;background:var(--accent);transform:rotate(-45deg);border-radius:4px 4px 0 0;position:relative;box-shadow:0 6px 20px rgba(255,107,129,0.18)}
+    .heart:before, .heart:after{content:"";position:absolute;width:20px;height:20px;background:var(--accent);border-radius:50%;}
+    .heart:before{top:-10px;left:0}
+    .heart:after{left:10px;top:0}
+
+    /* floating hearts */
+    .floating{
+      position:absolute; width:14px; height:14px; background:var(--accent); transform:rotate(-45deg); border-radius:4px 4px 0 0; opacity:0.9;
+    }
+    .floating:before, .floating:after{content:"";position:absolute;width:14px;height:14px;background:var(--accent);border-radius:50%;}
+    .floating:before{top:-7px;left:0}
+    .floating:after{left:7px;top:0}
+
+    .f1{left:8%; top:10%; animation:floatA 6s linear infinite}
+    .f2{left:25%; top:70%; animation:floatB 8s linear infinite}
+    .f3{left:78%; top:28%; animation:floatC 7s linear infinite}
+    .f4{left:60%; top:80%; animation:floatA 9s linear infinite}
+
+    @keyframes floatA{
+      0%{transform:translateY(0) scale(1) rotate(-45deg); opacity:0.95}
+      50%{transform:translateY(-40px) scale(1.1) rotate(-45deg); opacity:0.6}
+      100%{transform:translateY(0) scale(1) rotate(-45deg); opacity:0.95}
+    }
+    @keyframes floatB{
+      0%{transform:translateY(0) scale(1) rotate(-45deg)}
+      50%{transform:translateY(-70px) scale(1.05) rotate(-45deg)}
+      100%{transform:translateY(0) scale(1) rotate(-45deg)}
+    }
+    @keyframes floatC{
+      0%{transform:translateY(0) scale(1) rotate(-45deg)}
+      50%{transform:translateY(-30px) scale(0.95) rotate(-45deg)}
+      100%{transform:translateY(0) scale(1) rotate(-45deg)}
+    }
+
+    .btn{
+      display:inline-block;margin-top:1.2rem;padding:0.6rem 1rem;border-radius:999px;border:2px solid rgba(123,19,58,0.08);background:transparent;font-weight:700;cursor:pointer;
+      box-shadow: 0 6px 20px rgba(123,19,58,0.06);
+    }
+    .btn:active{transform:translateY(1px)}
+
+    footer{margin-top:1.4rem;font-size:0.85rem;color:#5a2b3a;opacity:0.9}
+
+    .datetime {
+      margin-top: 1rem;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #6b2940;
+    }
+
+    /* responsive small tweak */
+    @media (max-width:420px){
+      .card{padding:1.6rem}
+      p.lead{font-size:0.95rem}
+    }
+  </style>
+</head>
+<body>
+  <div class="card" role="main">
+    <div class="floating f1" aria-hidden></div>
+    <div class="floating f2" aria-hidden></div>
+    <div class="floating f3" aria-hidden></div>
+    <div class="floating f4" aria-hidden></div>
+
+    <h1>Hati-Hati di jalan ya sayangg 💖</h1>
+    <p class="lead">ikan lele makan ikan hiu, cakeppp... i love youuu azek wkwkw tian tian. 🥺</p>
+
+    <div id="datetime" class="datetime"></div>
+
+    <div class="heart-row" aria-hidden>
+      <div class="heart"></div>
+      <div class="heart" style="width:22px;height:22px"></div>
+      <div class="heart"></div>
+    </div>
+
+    <button class="btn" onclick="copyText()">Salin Pesan</button>
+
+    <footer>Sayang, Pura pura sakit ajaaa yang penting kamu duduk😌 ✨</footer>
+  </div>
+
+  <script>
+    function copyText(){
+      const text = 'Hati-Hati di jalan ya sayangg';
+      if(navigator.clipboard){
+        navigator.clipboard.writeText(text).then(()=>{
+          alert('Tersalin! ✨');
+        }).catch(()=>{ fallback() });
+      } else { fallback() }
+      function fallback(){
+        const t = document.createElement('textarea'); t.value = text; document.body.appendChild(t); t.select();
+        try{ document.execCommand('copy'); alert('Tersalin! ✨') }catch(e){ alert('Gagal menyalin — silakan salin manual.') }
+        t.remove();
+      }
+    }
+
+    function updateDateTime() {
+      const dtElem = document.getElementById("datetime");
+      const now = new Date();
+      const days = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+      const dayName = days[now.getDay()];
+      const date = now.toLocaleDateString("id-ID", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      });
+      const time = now.toLocaleTimeString("id-ID", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+      });
+      dtElem.textContent = `${dayName}, ${date} • ${time}`;
+    }
+
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
+  </script>
+</body>
+</html>
