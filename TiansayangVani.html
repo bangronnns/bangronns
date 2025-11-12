@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Undian Cinta — untuk Vani 💖</title>
+<style>
+  :root{
+    --glass: rgba(255,255,255,0.7);
+    --txt:#3b2130;
+  }
+  html,body{height:100%;margin:0;font-family: "Segoe UI", Roboto, system-ui, Arial;background:#ffd6e8;overflow:hidden}
+  /* animated gradient background */
+  .bg {
+    position:fixed;inset:0;
+    background: linear-gradient(120deg,#ffd6e8 0%, #cfe7ff 33%, #efd5ff 66%, #ffe7c7 100%);
+    background-size: 600% 600%;
+    animation: gradientShift 24s ease infinite;
+    filter: saturate(1.02);
+  }
+  @keyframes gradientShift {
+    0%{background-position:0% 50%}
+    25%{background-position:50% 50%}
+    50%{background-position:100% 50%}
+    75%{background-position:50% 50%}
+    100%{background-position:0% 50%}
+  }
+
+  /* center card */
+  .card {
+    position:relative;
+    margin:40px auto;
+    width:min(720px,94%);
+    background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.88));
+    border-radius:20px;
+    box-shadow: 0 12px 40px rgba(59,34,48,0.15);
+    padding:28px;
+    backdrop-filter: blur(6px) saturate(1.02);
+    border: 1px solid rgba(255,255,255,0.35);
+  }
+
+  header{display:flex;gap:14px;align-items:center}
+  .logo{width:70px;height:70px;border-radius:16px;background:linear-gradient(135deg,#ff6fa3,#ff9fc9);display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:28px;box-shadow:0 6px 18px rgba(255,111,163,0.18)}
+  h1{margin:0;font-size:20px;color:var(--txt)}
+  p.lead{margin:6px 0 0;color:#6c4e5b;font-size:13px}
+
+  .center {
+    display:flex;
+    margin-top:18px;
+    gap:18px;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+  }
+
+  .input-wrap{flex:1;min-width:220px}
+  input[type="text"]{
+    width:100%;padding:14px;border-radius:12px;border:1px solid rgba(107,78,93,0.12);font-size:16px;
+    box-shadow: 0 6px 18px rgba(107,78,93,0.04) inset;
+  }
+  .controls{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+  button{cursor:pointer;border:0;padding:10px 14px;border-radius:10px;font-weight:700}
+  .btn-primary{background:linear-gradient(90deg,#ff6fa3,#ff9fc9);color:white}
+  .btn-ghost{background:transparent;border:1px solid rgba(107,78,93,0.08);color:#59374a}
+
+  .peek{
+    width:45%;min-width:260px;
+    background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.5));
+    border-radius:12px;padding:14px;border:1px dashed rgba(107,78,93,0.06);
+    text-align:center;
+  }
+
+  .message{
+    min-height:120px;display:flex;align-items:center;justify-content:center;
+    font-size:18px;color:var(--txt);line-height:1.4;padding:12px;
+    transition:all .45s cubic-bezier(.2,.9,.3,1);
+    border-radius:10px;
+  }
+
+  .small{font-size:13px;color:#715158}
+
+  .floating-hearts{
+    position:absolute;right:14px;top:14px;font-size:20px;opacity:.9;
+    pointer-events:none;
+    animation:floatHearts 3s ease-in-out infinite;
+  }
+  @keyframes floatHearts{
+    0%{transform:translateY(0) rotate(-4deg)}
+    50%{transform:translateY(-6px) rotate(6deg)}
+    100%{transform:translateY(0) rotate(-4deg)}
+  }
+
+  .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:28px;background:rgba(0,0,0,0.7);color:white;padding:10px 14px;border-radius:10px;opacity:0;transition:opacity .25s}
+  .toast.show{opacity:1}
+
+  .meta{margin-top:12px;color:#72525f;font-size:13px;display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap}
+
+  .reset{background:transparent;border:1px solid rgba(200,100,140,0.12);padding:8px 10px;border-radius:10px;font-size:13px}
+
+  /* gentle reveal */
+  .reveal {
+    opacity:0;
+    transform:translateY(8px) scale(.99);
+    animation:pop .45s cubic-bezier(.2,.9,.3,1) forwards;
+  }
+  @keyframes pop { to { opacity:1; transform:none } }
+  
+  footer{margin-top:18px;font-size:13px;color:#6b505f;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+  a.small{color:#4b2a3a;text-decoration:underline}
+</style>
+</head>
+<body>
+  <div class="bg" aria-hidden="true"></div>
+
+  <main class="card" role="main" aria-labelledby="title">
+    <div class="floating-hearts">💞💫</div>
+
+    <header>
+      <div class="logo">T❤V</div>
+      <div>
+        <h1 id="title">Undian Cinta — dari Tian untuk Vani</h1>
+        <p class="lead">Masukkan kode yang ada di kertas kecilnya (misal <strong>A123B</strong>) — tekan <em>Lihat Pesan</em>, pesan unik akan muncul dan tidak akan keluar lagi.</p>
+      </div>
+    </header>
+
+    <div class="center" role="form" aria-label="form">
+      <div class="input-wrap">
+        <label class="small" for="code">Masukkan kode undian</label>
+        <input id="code" type="text" placeholder="Contoh: A123B" inputmode="latin" autocomplete="off" aria-describedby="hint"/>
+        <div class="controls">
+          <button id="reveal" class="btn-primary">Lihat Pesan 💌</button>
+          <button id="random" class="btn-ghost">Kode acak</button>
+          <button id="reset" class="reset">Reset history</button>
+        </div>
+
+        <div id="hint" class="small" style="margin-top:8px">Setiap kode akan menarik 1 pesan yang belum pernah keluar. Jika semua pesan sudah terambil, akan muncul pemberitahuan.</div>
+      </div>
+
+      <div class="peek" aria-live="polite">
+        <div id="message" class="message">Masukkan kode lalu tekan <strong>Lihat Pesan</strong> — selamat bersenang-senang, Tian 💖</div>
+        <div class="meta">
+          <div id="count" class="small">Total pesan: 0</div>
+          <div id="used" class="small">Terpakai: 0</div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <div class="small">Privasi: semua data disimpan di browser Anda (localStorage).</div>
+      <div class="small">Sumber pesan: file yang kamu upload. </div>
+    </footer>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+<script>
+/*
+  Isi pesan diambil dari file teks yang kamu upload.
+  (Sumber: file yang diunggah oleh pengguna.) :contentReference[oaicite:1]{index=1}
+  --- parsing rules ---
+  - placeholder {jam ...} -> diisi jam:menit lokal perangkat
+  - {hari} -> nama hari Bahasa Indonesia
+  - {pagi/siang/sore/malam ...} -> dipilih sesuai jam sekarang
+  - placeholder lain dalam kurung kurawal dihapus (kecuali dikenali)
+*/
+
+const rawText = `amboiiii, kangennn banget sama ceweku ini bahh, sayang akuuu, bagaimanaa paus buntaynya sudah di kasih maam beyum?? aku belum bisa bawless sayangg,, semangatt kuliahmuu di hari {hari} ini yaa
+udah jam {jam sesuai hp} nihhh, kamu sudah maam belumm?? kalau belum makann ya sayangg... maam banyakkk jangan sampai sakitt
+selamat {pagi/siang/sore/malam tergantung jam pada hp} sayanggg, i love you so muchh, nnti selesai ini aku bakal carii kamu, kita jalan jalaannn tungguin yaa
+halo baby, aku kangen😞, aku kangen banget.. aku lagi sedih ini.. karena kangenin kamu
+sayanggg, mohon agar tidak berubah ya babyy, aku mau nanti pas aku balik, kamu tetap jadi orang yang sayang sama akuu ya cintaa
+sayangku, terimakasii banyakkkkk, kamu udah mau nemenin aku dari aku tes ampe sekarang,,, maaff banget aku kalau gaada kabar, yang harus kamu tau, disini aku juga mikirin kamu hun..
+alohaaa, kataa liloo, masi inget ga kita nonton lilo? nanti kita nonton lagiy yaaahhh, tungguinn akuuu
+heyooo heyooo lagii apaahh sayang?? nak cipok bole? hehehe, sayang sayang, aku kangen banget sama mu,banget,banget, nnti dapat gajian sekola, i will stekesion wkwkw sama kamuuuu
+duhai cintaku, sayangkuu, sudahhh maaam?, maam apoyy?? mama gimana kondisinya baby?? sehat sehat semua kannn orang rumah?
+1+1? iyaa 2, nanti nama kamu ada di nomor 2 di kartu keluarga kitaa.. mwehehehe, semangatt sayangg buat hari iniyyy
+hunn, gimana kalau kita pelukann?? kamu peluk paus buntay, aku peluk paus biruuu.. nanti paus biru nya sampaikan ke paus buntay...
+babyyy, i lovee youu, and i miss u banget sekebon, se ladang, sebumi, kangen pisannnn
+my hunn, tugas kamu banyak? atau kamu lagi libur semester baby?? jangan sampai ada yang fail tugasnya yaaahhh
+aku cinta banget sama kamu, bingung ngejelasinnya bagaimanaaa, sampai aku lupa siapa aku.. huaaa😞
+aku pengen disamping kamu dehhh sekarangg,, pengen nonton sama kamuuuu, sambil pegang tangan kamuuuu
+kamu kuliah hari ini baby?? bagaimana badan kamu?? sehat kan?? jangan lupa minum airr walaupun diet, biar ga dehidrasi ya sayangg
+sayang sayanggg, udah berapaa bb muu?? sudah mencapai target yang diingin kan? i hope tercapai ya baby.. jangan sampai sakit!!!
+aku kangen sekaliy sama kamu.., wah aumpah kangen banget padahal ini aku nulisnya sebelum berangkat, tapi aku sekangen ini
+i loveeeeeeeeee youuuuu geovaniiiii panjaitannnnnkuuuuu
+kamu banyak tugas baby? lembur gaa sekarang?? apa besok? apa lusa?? nnti kalau lembur hati hati pulangnyo yaaa, apalagi kalau pulang malam, wajib hati hati!
+sayangku, kamu dimana?? masih di depok kan? tungguin akuu ya hunn... aku juga disini masih mikirin kamu
+sayang, pasti deh aku nangis madep tembok, banyak banget momen yang udah kita rakit.. aku gabisa lupain, bahkan gak mau buat lupain itu semuaa
+selamatt {pagi/siang/sore tergantung jam pada hp pengguna} sayangkuuuuu, gimanaa hati ini sayang?? ada yang buat kamu kesal? atau overall menyenangkan?? aku mau kamuu disiniii, berdoaaa yaa sayangg..
+van, kalau kamu buka ini, aku bener bener lagi mikirin kamu saat kamu buka ini, aku yakin, karna bahkan setiap saat pun kaya aku tuh ngeliat kamu di otak aku gitu.. aku cinta kamu vann
+vann, gigi kamu bagaimana?? apaa masih sakitt?? kok kamu gajadi cabut gigiii hun?? ih kasiann kamu aaaa gajadi cabut gigiii
+babyyy aku seneng banget bisa sekolaaa, tapi aku ga seneng haruss jauh dari kamuuu, semangatt ya sayang, kita pasti bisaa
+heii cinta, hows ur day hun?? hrhehe kali ini maaf banget aku cuman nanya ajaa, jadinya searah doangg,, tapi pasti akuu mikirin kamu sayangg...
+aku lahir 2003, dan bulan desember 2024, aku memutuskan untuk mendekati cewe yang bener bener sampai detik ini aku sayang.
+kiw kiww cewekkk, kuliahmu bagaimanaa??? lancarkan baby??? teman teman kamu datang tidak?? {jika pengguna membuka nya malam hari}
+belum tidur hun??? doaa duluu yaww sayangkuu, mimpi indahhh.. tidur nyenyakk.. biar besok fresh lagiyy {jika diatas jam 8 malam}
+alooww selamat selamatt pagiyyy hati hati berangkatnyaaa,, semangatt kuliahnya yaa sayanggg {jika pagi hari}
+aku cinta bangett sama kamu sayanggg,, aku bakal jagaa hatiiii, jaga kepercayaan kamu, jaga semuanya yang dari kamuu...
+kamu udah pikirin belum nanti kitaaa kemana abis aku sekolaaaa??? kasih tau aku ya sayanggg
+sibukinn diri kamu yaa hunnn... agar kamu tidak sedih sedih lagi... kalau perlu boleh ga aku minta buatin baju hehehee nanti aku ambill sesudah sekulaa..
+yukkk bisaa yukkk, kita pasti bisaa sukses bareng barenggg sampai akhirnya kita nanti menua bersamaa..
+jangannn syedihhh babyyyy....aku ikutan sedih niii, nanti aku kuyel kuyell peyut kamuuu...
+akuu gamau tauuu, pokoknyaa abis sekulaaa kita jalann jalannn titikkk gapake komaaaa, harus jalan jalan!!!
+dmall jadi gaadaa member setianyaa hun hahaha😞 tapi nanti abis sekula kita nonton sehariann juga gapopoyyy..  tahan ya hunnn...
+disini kangen, disanaa kangen, dimana mana hatiku kangennnn... AAAAA pengen kisss.....
+sayangggggg beneren dehhhh aku gatau lagi nih bilangnya gimana, aku kangenin kamu terus disini... pengen kamu disini..
+say.. bahkan aku mau kek gini wkwkw jadi kamu ikut daftar buar terus sama aku WKWKWKWK taoi ya gamungkin lah,, kamu dah jagok banget di design ya kan... bakal keren kamu, jadi org hebat pasti.. ga kemana..
+bungannyaaa bagaimana baby?? gapapaa layu,, kalau layu kamu bisa awetinn kamu kan jago yang begitu..apapun itu di jaga ya sayang, jangan pernah di buang...aku ada disitu dalam bentuk benda..
+pohon natalnya ndak bisa di hias lagi yaa ?? wkwkwkw kekecilan ya sayang??? maaf yaaa tapiii itu nanti ada akuu di samping pohon natal kicik itu...
+semoga waktu berlalu cepat ya sayang, aku sudah tidak sabar untuk bertemu kamu..aku sudah tidak sabar untuk spent time lagi sama kamu..
+akuuu ingettt gemoynya kamu pas kamu kuda kuda dan peluk aku dari depann, iii lucoooo.. 😞
+sayanggg, nanti kita makan ketoprak okayy??? tunguin aku tapiyyyy, makan ketoprak sama kordon blu mwehehehe
+aku kangen bangettt pas kamu rangkul tangan aku... aku beruntung banget unya cewe sepertii kamu sayang....
+inget gaaa sayang pass pertama kita duduk di tdrp??? yang ada bayangan kita di bawah menara salomo?? trus kamu ambil hp aku buat poto bayangan kita itu.. ih nanti kira ulangin lagi ya
+kamuu inget gaa pas kita borong tiket funworld seruu kan???? ampee kita bisa beli pancii loh wkwkwkwkw nnti kita beli panci langsung aja hun gausa tuker tiket nyaaa asekkk,, semangatt yaa babyyyy
+ada nih ya, cewe aku dibilang cantik sama ibu ibu yang jualan jeans, tapi dia sendiri bilang ga cantikk,, haduhh padahal secantik itu loh dia.. cewe akuuu ituu,, geovani..
+jangan duyuuu... gemoy bangey... nanti aku bisikin di kuping kamuuuu...
+sayangg maapin akuu, selama ini aku ajak jalannya rata rata di depok terus.... nanti setelah sekolah, kita jalan jalan keluar kotaa yaa... i lovee youu hunnn
+coba bilang i love you tiann.. nah sekarang aku jawab,, I LOVE YOUUU MORE MORE MORE MORE MORE MORE MORE MORE MORE MORE HUNNNN
+kamu inget gaaak sayang?? yang mbak mbak cgv bilang kaka sering kesini haahhahaha, dalam hati, maaf ya mba, ini paling ekonomis wkwkwk, tp santai ajaaa nanti kita kan nonton 1 day full...
+dimana ada vaniyy, disitu ada tiann, tapi tiannya lagi sekolaa sekarangg,, gapopoyy tian kan sekolah buat vaniy jugaa.. sehat selaluu sayangkuuu, i love YOUUU
+andai kita bisa telepati ya hun,, aku telepati terus pas lagi merayap di tanah hahahaa, aku kangen kali sama muu
+sayang aku sayang aku,, nanti mau coba cordonblue 2 gak? jadi satu orang 2 piring hahahaha, wahh bakalan nikmat banget ituyy
+baby babyyy,, tadi di kereta diri atau dudukk???? kalau bisa next kinta barengin mamah gitu sayang pas dari stadela ke rumahh, kalau kamu udah cape banget.
+a.. ak.. akuu mau teriak disini, mau teriak, AKU KANGEN PACARKUUUUUUU tapi gadibolehin kayaknya, sekangen itu aku sama mu disini sayang...
+coba deh nanti kamuu meremm terus itung dombaa kalau kamu gabisa bobok hun.. biar cepay tidurnyaa, beso pagi biar bugarr badan kamu.. {khusus malam hari}
+tangan kiri kamuu perna aku peganggg, tangan kananmu pun juga,, apalagi perut kamuu, pernah aku kuyel kuyell, nantii gitu lagiyy yaa hunnn abis sekulaa..
+Mulai harii dengan berdoa, tutup hari juga dengan berdoa ya sayanggg,, untuk sekarang, kita saling sahut doa ya baby..
+kitaa perna motorann dari gbk sampai depok hahahaha, pengen lagi pengen lagiii.. nanti yaa hunn, sabayyy... i love you baby..
+aku ulang tahun sayanggg yang rayainn teman teman disiniy.. sayang :( gapapaaaaaa aku mau kamu doa ulang tahun yaaa sayangkuuu..
+kitaa harusss pertahanin hubungan ini babyyy sampai jadi kakek nenek, dari hubungan pacaran sampai nikah yeayyy heheheh
+kamu inget ndak baby? pas kita konser planetshaker, ada temen kamu yang baru kamu kenal langsung kamu tinggalin huuuu lucuu wkwkwkwk nanti kita cari komser lagi ya sayang..
+bacaa alkitabb babyy,, biar ndakk bosannn.. atau nonton fillmm black mirrorr... tuntasinn.. nanti aku mau tau ceritanya dari kamu aja..
+sayang sayang,, aku punya gombalan, kalaupun nanti bakal ada yang lebih cantik dari kamu, aku yalin itu anak kita. asekkkk... i lovee you baby!!!
+Aku sedihh aku gabisa liatt kamu kirim fotoo tiap hawrii baby :( nanti aku mau pandagin kamu setiap menit yaaa
+aku senengg banget pass kamu joget tarian kucing ituyyy babyy, nanti narii depan aku lagiyy yaaa
+baby kuu, i love youu,, i miss u, semua tentang kamu aku pengen, aku mau, aku inginnn
+heyyy vaniy kuu, orang mau beli pisang hehehe inget itu nggakk,,, aslinya itu aku gugup taukk
+aku bakal baik baik sajaa disini sayang, aku gabakal metonggg,, kamu juga harus jaga kesehatan ya baby...
+kalau kamu kangen maxx,, kamu boleh nonton film atau baca bukuuu,, terus paus ama bonekanya disamping kamu buat nemenin kamuu
+semoga nanti pas kamu ulang tahun bisa aku samperin yah baby... semogayaaa aku nnti ke lasall nyamperin kalau pas ulang tahun, ada kebijakan liburr
+eh mau liat project aku ga? itu yang kamu bilangg sebelum kamu kirim foto project kamu, aku kangenn pas kita pdkt sayanggg
+enakkk nih nanti kalau udah sama sama suksess,, kemana ajaa bebayyy, yang penting berduaaa teyuss ya babyy
+sayangg aku, walaupun aku sekula, kamu makannya gabolee kurang ya sayang, takutnya kamu sakit sayangg
+hunnn gimana nanti kalau udah selesai ini, aku peluk kamu lama? boyehh sayang?
+sayang sayanggg,pleaseee tungguin aku selesai ini yahhh biar kira nnti bisa havingfun barengggg, bisa main funworld bareng lagi, bisaaa nonton bioskop lagi..
+lucu banget pas kamu bilang, lagi lagi lagi, setiap aku bilang gemoy banggey gitu gitu wkwkwkw ahhh mau ku peluk eratt rasanyaa
+nanti pasti kamu bakalan jadi designer ternamaa, kamu juga bakal sukses, apa yang jadi tujuan kamu akan tercapaii perlahan, aku yakin kamu pasti sukses baby..
+sayang maaf yaa kalau aku ngeselin, tapi di balik ngeselinnya aku, sayang aku, cinta aku guedeee polll hunn
+kita kedupaan abis aku sekolahh ya, kamu harus paksa aku, biar jadiii...
+Cantik, sexyy, hott, badie ya kalau kata kamu?? semua kamu borong sayang,, baikk,, body nya aduhayy
+Akuuu pengen banget makannn kordonbluu lagi sama kamu wehh, disini makannya gajelass wkwkwk, tapi kalau kamu disini, makan apapun ku jadiinn.. kamu jangan lupa maam ya baby..
+Aku selalu sayang kamu van, aku sedih terus disini.
+aku gaakan sekalipun ninggalin kamu, gaakan, ini bukan ninggalin ya sayang, ibaratnya nyari duit dulu aku, biar kita foya foya nantii.. hehehe💝
+Sayang akuu,mau cium?? sini aku kiss dari jauh, merem duluyy,,, trus taroo boneka paus buntaynya di samping kamu, aku lagi cium kamu ituu..
+Aku mau peluk kamu, mau cium kamu, mau angkat kamuuuu, mau gandengan sama kamu, apa aja pokoknya sama kamu sayang 😞 aku kecintaan sama kamu...`;
+
+/* parse into array: split lines, trim, remove empties */
+let messages = rawText.split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
+
+/* Save counts and initialize storage keys */
+const STORAGE_KEYS = {
+  CODE_MAP: 'uc_code_map_v1',    // object: { code: index }
+  USED_SET: 'uc_used_set_v1'     // array of used indices
+};
+
+/* load from storage */
+function loadState(){
+  let map = {};
+  let used = [];
+  try {
+    map = JSON.parse(localStorage.getItem(STORAGE_KEYS.CODE_MAP) || '{}');
+  } catch(e){}
+  try {
+    used = JSON.parse(localStorage.getItem(STORAGE_KEYS.USED_SET) || '[]');
+  } catch(e){}
+  return {map, used};
+}
+function saveState(map, used){
+  localStorage.setItem(STORAGE_KEYS.CODE_MAP, JSON.stringify(map));
+  localStorage.setItem(STORAGE_KEYS.USED_SET, JSON.stringify(used));
+}
+
+/* helper: replace placeholders */
+function fmtPlaceholders(text){
+  const now = new Date();
+  const hh = now.getHours();
+  const mm = now.getMinutes().toString().padStart(2,'0');
+  const jamStr = `${hh}:${mm}`;
+  const days = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+  const hari = days[now.getDay()];
+
+  // decide pagi/siang/sore/malam by hour
+  let part = 'malam';
+  if(hh >= 5 && hh < 11) part = 'pagi';
+  else if(hh >= 11 && hh < 15) part = 'siang';
+  else if(hh >= 15 && hh < 19) part = 'sore';
+  else part = 'malam';
+
+  // known patterns to replace
+  text = text.replace(/\{[^}]*jam[^}]*\}/gi, jamStr);
+  text = text.replace(/\{[^}]*hari[^}]*\}/gi, hari);
+  // replace any explicit pagi/siang/sore/malam group with correct part
+  text = text.replace(/\{[^}]*(pagi\/siang\/sore\/malam|pagi\/siang\/sore)[^}]*\}/gi, part);
+  // for odd markers like {khusus malam hari} or {jika ...} , remove them
+  text = text.replace(/\{[^}]*\}/g, '');
+  // tidy whitespace
+  return text.replace(/\s{2,}/g,' ').trim();
+}
+
+/* UI elements */
+const elCode = document.getElementById('code');
+const btnReveal = document.getElementById('reveal');
+const btnRandom = document.getElementById('random');
+const btnReset = document.getElementById('reset');
+const elMessage = document.getElementById('message');
+const elCount = document.getElementById('count');
+const elUsed = document.getElementById('used');
+const toast = document.getElementById('toast');
+
+/* initialize counts */
+function refreshCounts(){
+  const state = loadState();
+  elCount.textContent = `Total pesan: ${messages.length}`;
+  elUsed.textContent = `Terpakai: ${state.used.length}`;
+}
+refreshCounts();
+
+/* show toast */
+function showToast(text, t=2200){
+  toast.textContent = text;
+  toast.classList.add('show');
+  setTimeout(()=>toast.classList.remove('show'), t);
+}
+
+/* pick a random unused index */
+function pickRandomUnused(used){
+  const n = messages.length;
+  const usedSet = new Set(used);
+  const available = [];
+  for(let i=0;i<n;i++) if(!usedSet.has(i)) available.push(i);
+  if(available.length===0) return -1;
+  const r = Math.floor(Math.random()*available.length);
+  return available[r];
+}
+
+/* reveal flow */
+btnReveal.addEventListener('click', ()=>{
+  const code = (elCode.value || '').trim();
+  if(!code){
+    showToast('Masukkan kode undian dulu ya 🙂');
+    elCode.focus();
+    return;
+  }
+  const {map, used} = loadState();
+
+  // if code already mapped -> show same
+  if(map.hasOwnProperty(code)){
+    const idx = map[code];
+    const text = fmtPlaceholders(messages[idx] || '—');
+    displayMessage(text, idx, code);
+    return;
+  }
+
+  // else pick random unused
+  const idx = pickRandomUnused(used);
+  if(idx === -1){
+    displayMessage('Wah... semua pesan sudah dibuka 💖 Kamu sudah membuka semua pesan cinta.', null, null);
+    showToast('Semua pesan telah terbuka.');
+    return;
+  }
+
+  // map code -> idx and mark used
+  map[code] = idx;
+  used.push(idx);
+  saveState(map, used);
+
+  const text = fmtPlaceholders(messages[idx]);
+  displayMessage(text, idx, code);
+  refreshCounts();
+});
+
+/* show message with animation and metadata */
+function displayMessage(text, idx, code){
+  elMessage.classList.remove('reveal');
+  void elMessage.offsetWidth;
+  elMessage.classList.add('reveal');
+
+  // nicely wrap with hearts
+  elMessage.innerHTML = `<div style="font-size:18px">${escapeHtml(text)}</div><div style="margin-top:8px;color:#9b6b80;font-size:13px">${idx!=null?`Pesan #${idx+1}`:''}${code?` • kode: ${escapeHtml(code)}`:''}</div>`;
+
+  showToast('Pesan muncul! 💌', 1500);
+}
+
+/* basic escaping to avoid accidental HTML injection */
+function escapeHtml(s){
+  return String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
+}
+
+/* random code generator (for fun) */
+btnRandom.addEventListener('click', ()=>{
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const part1 = letters.charAt(Math.floor(Math.random()*letters.length));
+  const num = String(Math.floor(Math.random()*999)+1).padStart(3,'0');
+  const part2 = letters.charAt(Math.floor(Math.random()*letters.length));
+  elCode.value = `${part1}${num}${part2}`;
+});
+
+/* reset history with confirmation */
+btnReset.addEventListener('click', ()=>{
+  if(!confirm('Reset akan menghapus semua riwayat pesan yang sudah keluar di browser ini. Lanjutkan?')) return;
+  localStorage.removeItem(STORAGE_KEYS.CODE_MAP);
+  localStorage.removeItem(STORAGE_KEYS.USED_SET);
+  refreshCounts();
+  elMessage.textContent = 'Riwayat direset — sistem siap dipakai ulang. Masukkan kode baru.';
+  showToast('Riwayat berhasil dihapus.');
+});
+
+/* allow Enter key to trigger reveal */
+elCode.addEventListener('keydown', (e)=>{
+  if(e.key === 'Enter') { e.preventDefault(); btnReveal.click(); }
+});
+
+/* On first load, show a friendly count */
+(function init(){
+  refreshCounts();
+})();
+</script>
+</body>
+</html>
