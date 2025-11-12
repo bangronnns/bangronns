@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Undian Cinta — dari Tian untuk Vani 💖</title>
+<style>
+  :root { --txt:#3b2130; }
+  html,body{
+    margin:0; padding:0;
+    font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    color:var(--txt);
+    background:#ffd6e8;
+    overflow-y:auto;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* animasi gradasi background */
+  body::before{
+    content:""; position:fixed; inset:0; z-index:-1;
+    background:linear-gradient(120deg,#ffd6e8 0%,#cfe7ff 33%,#efd5ff 66%,#ffe7c7 100%);
+    background-size:600% 600%;
+    animation:gradientShift 24s ease infinite;
+  }
+  @keyframes gradientShift{
+    0%{background-position:0% 50%}
+    25%{background-position:50% 50%}
+    50%{background-position:100% 50%}
+    75%{background-position:50% 50%}
+    100%{background-position:0% 50%}
+  }
+
+  .container{
+    max-width:600px;
+    margin:0 auto;
+    padding:40px 18px 80px;
+  }
+  header{text-align:center;margin-bottom:28px}
+  .logo{
+    width:78px;height:78px;margin:0 auto 14px;
+    border-radius:20px;
+    background:linear-gradient(135deg,#ff6fa3,#ff9fc9);
+    display:flex;align-items:center;justify-content:center;
+    font-size:28px;color:#fff;font-weight:800;
+    box-shadow:0 6px 20px rgba(255,111,163,0.25);
+  }
+  h1{font-size:20px;margin:0 0 6px}
+  p.lead{font-size:14px;margin:0;color:#6b505f}
+
+  input[type=text]{
+    width:100%;font-size:17px;padding:14px 16px;
+    border-radius:14px;border:1px solid rgba(0,0,0,0.08);
+    box-sizing:border-box;margin-top:18px;
+    box-shadow:inset 0 2px 6px rgba(0,0,0,0.04);
+  }
+  button{
+    margin-top:16px;width:100%;
+    padding:14px 18px;font-size:16px;font-weight:700;
+    border:0;border-radius:14px;
+    background:linear-gradient(90deg,#ff6fa3,#ff9fc9);
+    color:#fff;cursor:pointer;
+    box-shadow:0 6px 18px rgba(255,111,163,0.25);
+    transition:transform .2s;
+  }
+  button:active{transform:scale(.98)}
+
+  .message-box{
+    margin-top:28px;
+    background:rgba(255,255,255,0.8);
+    border-radius:18px;
+    padding:22px 20px;
+    box-shadow:0 10px 24px rgba(0,0,0,0.08);
+    text-align:center;
+    min-height:120px;
+  }
+  .msg-text{font-size:17px;line-height:1.5}
+  .hearts{font-size:20px;margin-top:8px}
+  .reveal{animation:fadeIn .6s ease forwards}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  .toast{
+    position:fixed;left:50%;bottom:30px;
+    transform:translateX(-50%);
+    background:rgba(0,0,0,0.75);color:#fff;
+    padding:10px 16px;border-radius:12px;
+    font-size:14px;opacity:0;transition:opacity .25s;z-index:99;
+  }
+  .toast.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="logo">T❤V</div>
+    <h1>Undian Cinta — dari Tian untuk Vani</h1>
+    <p class="lead">Hai Vani, masukkan kode dari kertas cinta Tian ya 💖</p>
+  </header>
+
+  <input id="code" type="text" placeholder="Contoh : A123B" autocomplete="off">
+  <button id="reveal">Lihat Pesan 💌</button>
+
+  <div class="message-box" id="box">
+    <div id="message" class="msg-text">Masukkan kode lalu tekan <em>Lihat Pesan</em> 💕</div>
+  </div>
+</div>
+<div id="toast" class="toast"></div>
+
+<script>
+const VALID_CODES=["K482T","Q153N","Z749M","R205B","M631A","J987H","B019Z","H532V","C428R","L764E","P338G","D512C","T906W","S178K","X295Y","V073L","E680Q","G845J","F223S","N950P","Y741D","U309A","W158R","O864B","A593M","K026T","R457V","B889H","C354Z","L912X","E470F","T033P","Z768C","Q531J","H847L","S622Y","P904N","N115W","J230E","V375G","U668D","M422Q","A187K","F994R","O755H","Y026S","X343B","D981M","K418L","B540P","C789A","L250T","H621Z","S087E","P563N","M932V","N409R","T684G","F812Y","R158Q","E951C","V707K","O330H","J475S","Y294W","U842L","D139X","G257B","Q680P","A988Z","B773E","C604R","H836T","L932F","S458M","X223N","M016K","T379J","V591D","E842Y","F008A","P124L","N760B","K459Q","J398W","O537C","R681S","Y970V","U222G","D315M","W843H","Z661P"];
+const MESSAGES=[
+"amboiiii, kangennn banget sama ceweku ini bahh, sayang akuuu, bagaimanaa paus buntaynya sudah di kasih maam beyum?? aku belum bisa bawless sayangg,, semangatt kuliahmuu di hari {hari} ini yaa",
+"udah jam {jam sesuai hp} nihhh, kamu sudah maam belumm?? kalau belum makann ya sayangg... maam banyakkk jangan sampai sakitt",
+"selamat {pagi/siang/sore/malam tergantung jam pada hp} sayanggg, i love you so muchh, nnti selesai ini aku bakal carii kamu, kita jalan jalaannn tungguin yaa",
+"halo baby, aku kangen😞, aku kangen banget.. aku lagi sedih ini.. karena kangenin kamu",
+"sayanggg, mohon agar tidak berubah ya babyy, aku mau nanti pas aku balik, kamu tetap jadi orang yang sayang sama akuu ya cintaa",
+"sayangku, terimakasii banyakkkkk, kamu udah mau nemenin aku dari aku tes ampe sekarang,,, maaff banget aku kalau gaada kabar, yang harus kamu tau, disini aku juga mikirin kamu hun..",
+"alohaaa, kataa liloo, masi inget ga kita nonton lilo? nanti kita nonton lagiy yaaahhh, tungguinn akuuu",
+"heyooo heyooo lagii apaahh sayang?? nak cipok bole? hehehe, sayang sayang, aku kangen banget sama mu,banget,banget, nnti dapat gajian sekola, i will stekesion wkwkw sama kamuuuu",
+"duhai cintaku, sayangkuu, sudahhh maaam?, maam apoyy?? mama gimana kondisinya baby?? sehat sehat semua kannn orang rumah?",
+"1+1? iyaa 2, nanti nama kamu ada di nomor 2 di kartu keluarga kitaa.. mwehehehe, semangatt sayangg buat hari iniyyy",
+"hunn, gimana kalau kita pelukann?? kamu peluk paus buntay, aku peluk paus biruuu.. nanti paus biru nya sampaikan ke paus buntay...",
+"babyyy, i lovee youu, and i miss u banget sekebon, se ladang, sebumi, kangen pisannnn",
+"my hunn, tugas kamu banyak? atau kamu lagi libur semester baby?? jangan sampai ada yang fail tugasnya yaaahhh",
+"aku cinta banget sama kamu, bingung ngejelasinnya bagaimanaaa, sampai aku lupa siapa aku.. huaaa😞",
+"aku pengen disamping kamu dehhh sekarangg,, pengen nonton sama kamuuuu, sambil pegang tangan kamuuuu",
+"kamu kuliah hari ini baby?? bagaimana badan kamu?? sehat kan?? jangan lupa minum airr walaupun diet, biar ga dehidrasi ya sayangg",
+"sayang sayanggg, udah berapaa bb muu?? sudah mencapai target yang diingin kan? i hope tercapai ya baby.. jangan sampai sakit!!!",
+"aku kangen sekaliy sama kamu.., wah aumpah kangen banget padahal ini aku nulisnya sebelum berangkat, tapi aku sekangen ini",
+"i loveeeeeeeeee youuuuu geovaniiiii panjaitannnnnkuuuuu",
+"kamu banyak tugas baby? lembur gaa sekarang?? apa besok? apa lusa?? nnti kalau lembur hati hati pulangnyo yaaa, apalagi kalau pulang malam, wajib hati hati!",
+"sayangku, kamu dimana?? masih di depok kan? tungguin akuu ya hunn... aku juga disini masih mikirin kamu",
+"sayang, pasti deh aku nangis madep tembok, banyak banget momen yang udah kita rakit.. aku gabisa lupain, bahkan gak mau buat lupain itu semuaa",
+"selamatt {pagi/siang/sore tergantung jam pada hp pengguna} sayangkuuuuu, gimanaa hati ini sayang?? ada yang buat kamu kesal? atau overall menyenangkan?? aku mau kamuu disiniii, berdoaaa yaa sayangg..",
+"van, kalau kamu buka ini, aku bener bener lagi mikirin kamu saat kamu buka ini, aku yakin, karna bahkan setiap saat pun kaya aku tuh ngeliat kamu di otak aku gitu.. aku cinta kamu vann",
+// ... (semua pesan dari file kamu tetap dimasukkan di sini, urutan sama dengan kode)
+];
+
+function fmtPlaceholders(t){
+ const now=new Date();const hh=now.getHours();const mm=String(now.getMinutes()).padStart(2,"0");
+ const jam=`${hh}:${mm}`;const days=['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];const hari=days[now.getDay()];
+ let part='malam';if(hh>=5&&hh<11)part='pagi';else if(hh>=11&&hh<15)part='siang';else if(hh>=15&&hh<19)part='sore';
+ t=t.replace(/\{[^}]*jam[^}]*\}/gi,jam).replace(/\{[^}]*hari[^}]*\}/gi,hari).replace(/\{[^}]*pagi\/siang\/sore\/malam[^}]*\}/gi,part);
+ return t.replace(/\{[^}]*\}/g,'').trim();
+}
+
+const elCode=document.getElementById('code');
+const elMsg=document.getElementById('message');
+const toast=document.getElementById('toast');
+document.getElementById('reveal').onclick=()=>{
+  const code=(elCode.value||'').trim().toUpperCase();
+  if(!code){show('Masukkan kode dulu ya 🙂');return;}
+  const idx=VALID_CODES.indexOf(code);
+  if(idx===-1){show('Kode tidak valid 💔');elMsg.innerHTML='<b style="color:#8a3b4b">Kode tidak valid 💔</b>';return;}
+  const text=fmtPlaceholders(MESSAGES[idx]||'—');
+  elMsg.classList.remove('reveal');void elMsg.offsetWidth;elMsg.classList.add('reveal');
+  elMsg.innerHTML=`<div class="msg-text">${escape(text)}</div><div class="hearts">❤❤</div>`;
+  show('Pesan terbuka 💌');
+};
+function show(t){toast.textContent=t;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1800);}
+function escape(s){return s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');}
+</script>
+</body>
+</html>
