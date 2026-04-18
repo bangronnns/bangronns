@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Vany 🤍</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+    background: url('https://i.pinimg.com/736x/0c/fd/28/0cfd28c87b6bd435bf9a307764523a45.jpg') no-repeat center center/cover;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* DARK BLUR OVERLAY */
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(8px);
+    background: rgba(0,0,0,0.45);
+}
+
+/* TEXT AREA */
+.container {
+    position: absolute;
+    top: 8%;
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+    z-index: 2;
+}
+
+.text {
+    font-size: 17px;
+    margin: 10px 0;
+    min-height: 22px;
+    border-right: 2px solid white;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+/* FOTO STACK */
+.card-container {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    height: 280px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+}
+
+/* HINT */
+.hint {
+    position: absolute;
+    bottom: 310px;
+    width: 100%;
+    text-align: center;
+    font-size: 13px;
+    opacity: 0.8;
+    z-index: 3;
+    animation: fadeHint 2s infinite;
+}
+
+@keyframes fadeHint {
+    0% {opacity: 0.3;}
+    50% {opacity: 1;}
+    100% {opacity: 0.3;}
+}
+
+.card {
+    position: absolute;
+    width: 85%;
+    height: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    background: #000;
+    touch-action: none;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* STACK STYLE */
+.card:nth-child(1) { z-index: 5; }
+.card:nth-child(2) { z-index: 4; transform: scale(0.95) translateY(10px); }
+.card:nth-child(3) { z-index: 3; transform: scale(0.9) translateY(20px); }
+.card:nth-child(4) { z-index: 2; transform: scale(0.85) translateY(30px); }
+.card:nth-child(5) { z-index: 1; transform: scale(0.8) translateY(40px); }
+
+</style>
+
+</head>
+
+<body>
+
+<div class="overlay"></div>
+
+<div class="container" id="textContainer"></div>
+
+<div class="hint">👉 geser foto</div>
+
+<div class="card-container">
+    <div class="card"><img src="foto1.jpg"></div>
+    <div class="card"><img src="foto2.jpg"></div>
+    <div class="card"><img src="foto3.jpg"></div>
+    <div class="card"><img src="foto4.jpg"></div>
+    <div class="card"><img src="foto5.jpg"></div>
+</div>
+
+<script>
+/* TEXT LIST */
+const texts = [
+"Tau gak kenapa senja itu menyenangkan?",
+"kadang dia merah, merekah bahagia",
+"kadang dia hitam, gelap berduka",
+"tapi langit, selalu menerima senja apa adanya",
+
+"Kayaknya, mau diulang ratusan kalipun, aku tetep pilih kamu deh - Sore",
+"Jangan Biarin aku Hilang di telan waktu ya jo - Sore",
+"orang ga akan pernah berubah karna rasa takut, tapi karna di cintai - Jo",
+
+"Sudah Bobo?? kapan kita nontonn romance film lagi nihh??",
+"Maafin Tian yah, tian cuman butuh waktu buat tenangin diri tadi.",
+"Tian sebenar benarnya kangen vany, dan gamau bandingin kamu dengan siapapun",
+"mau kaya gimanapun kamu, aku tetep sayang kamu.",
+"Maafin tian yang udah ngebandingin kamu ya, Tian emosian..",
+"kalau kamu belum bobo aku temenin sini vann!!",
+"tian dah ga emosi lagi ko, udah tian tinggalin emosi tian",
+"Besok gereja yah!!",
+"Dan ya vany,",
+"Tian minta maaf🤍",
+"Terakhir,",
+"Tian akan terus terusan sayang Vany."
+];
+
+const container = document.getElementById("textContainer");
+
+let i = 0;
+
+function typeText(text, element, speed = 40) {
+    let index = 0;
+    function typing() {
+        if (index < text.length) {
+            element.innerHTML += text.charAt(index);
+            index++;
+            setTimeout(typing, speed);
+        }
+    }
+    typing();
+}
+
+function showNextText() {
+    if (i >= texts.length) return;
+
+    let div = document.createElement("div");
+    div.className = "text";
+    container.appendChild(div);
+
+    typeText(texts[i], div);
+
+    i++;
+    setTimeout(showNextText, 2500);
+}
+
+showNextText();
+
+/* SWIPE FOTO */
+let cards = document.querySelectorAll('.card');
+
+cards.forEach(card => {
+    let startX = 0;
+    let currentX = 0;
+    let isDragging = false;
+
+    card.addEventListener('touchstart', e => {
+        startX = e.touches[0].clientX;
+        isDragging = true;
+    });
+
+    card.addEventListener('touchmove', e => {
+        if (!isDragging) return;
+        currentX = e.touches[0].clientX - startX;
+        card.style.transform = `translateX(${currentX}px) rotate(${currentX/10}deg)`;
+    });
+
+    card.addEventListener('touchend', () => {
+        isDragging = false;
+
+        if (Math.abs(currentX) > 100) {
+            card.style.transform = `translateX(${currentX > 0 ? 500 : -500}px) rotate(${currentX/10}deg)`;
+            setTimeout(() => card.remove(), 300);
+        } else {
+            card.style.transform = '';
+        }
+    });
+});
+</script>
+
+</body>
+</html>
