@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Vany 🤍</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Playfair+Display:wght@500&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: url('https://i.pinimg.com/736x/0c/fd/28/0cfd28c87b6bd435bf9a307764523a45.jpg') no-repeat center center/cover;
+    height: 100vh;
+    overflow: hidden;
+    color: #f5e6e8;
+}
+
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(8px);
+    background: rgba(0,0,0,0.5);
+}
+
+.container {
+    position: absolute;
+    top: 12%;
+    width: 100%;
+    padding: 0 25px;
+    box-sizing: border-box;
+    text-align: center;
+    z-index: 2;
+}
+
+.title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #ffd1dc;
+}
+
+.text {
+    font-size: 18px;
+    line-height: 1.6;
+    opacity: 0;
+    transition: opacity 1s;
+    white-space: pre-line;
+}
+
+.show { opacity: 1; }
+.hide { opacity: 0; }
+
+/* FOTO */
+.card-container {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    height: 260px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+}
+
+.card {
+    position: absolute;
+    width: 85%;
+    height: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    background: #000;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card:nth-child(1) { z-index: 5; }
+.card:nth-child(2) { z-index: 4; transform: scale(0.95) translateY(10px); }
+.card:nth-child(3) { z-index: 3; transform: scale(0.9) translateY(20px); }
+.card:nth-child(4) { z-index: 2; transform: scale(0.85) translateY(30px); }
+.card:nth-child(5) { z-index: 1; transform: scale(0.8) translateY(40px); }
+
+/* HINT */
+.hint {
+    position: absolute;
+    bottom: 290px;
+    width: 100%;
+    text-align: center;
+    font-size: 13px;
+    opacity: 0.7;
+    z-index: 3;
+}
+
+/* BUTTON */
+.button {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 25px;
+    background: #ff8fa3;
+    color: white;
+    border-radius: 25px;
+    font-size: 16px;
+    text-decoration: none;
+    opacity: 0;
+    transition: opacity 1s;
+    z-index: 5;
+}
+
+.button.show {
+    opacity: 1;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- BACKSOUND -->
+<audio id="bgm" loop>
+  <source src="sore.mp3" type="audio/mpeg">
+</audio>
+
+<div class="overlay"></div>
+
+<div class="container">
+    <div class="title">Untuk Vany 🤍</div>
+    <div id="textBox" class="text"></div>
+</div>
+
+<div class="hint">👉 geser foto</div>
+
+<div class="card-container" id="cards">
+    <div class="card"><img src="IMG-20260419-WA0009.jpg"></div>
+    <div class="card"><img src="IMG-20260419-WA0011.jpg"></div>
+    <div class="card"><img src="IMG-20260419-WA0012.jpg"></div>
+    <div class="card"><img src="IMG-20260419-WA0008.jpg"></div>
+    <div class="card"><img src="IMG-20260419-WA0000.jpg"></div>
+</div>
+
+<a href="https://wa.me/6288808185757" class="button" id="callBtn">Call Tian 🤍</a>
+
+<script>
+// BACKSOUND PLAY (WAJIB INTERAKSI USER)
+document.addEventListener("click", function () {
+  const audio = document.getElementById("bgm");
+  audio.volume = 0.5;
+  audio.play();
+}, { once: true });
+
+const sections = [
+`Tau gak kenapa senja itu menyenangkan?
+kadang dia merah, merekah bahagia
+kadang dia hitam, gelap berduka
+tapi langit, selalu menerima senja apa adanya`,
+
+`"Kayaknya, mau diulang ratusan kalipun, aku tetep pilih kamu deh"
+- Sore`,
+
+`"Jangan Biarin aku Hilang di telan waktu ya jo"
+- Sore`,
+
+`"orang ga akan pernah berubah karna rasa takut, tapi karna di cintai"
+- Jo`,
+
+`Sudah Bobo?? kapan kita nontonn romance film lagi nihh??`,
+`Maafin Tian yah, tian cuman butuh waktu buat tenangin diri tadi.`,
+`Tian sebenar benarnya kangen vany, dan gamau bandingin kamu dengan siapapun`,
+`mau kaya gimanapun kamu, aku tetep sayang kamu.`,
+`Maafin tian yang udah ngebandingin kamu ya, Tian emosian..`,
+`kalau kamu belum bobo aku temenin sini vann!!`,
+`tian dah ga emosi lagi ko, udah tian tinggalin emosi tian`,
+`Besok gereja yah!!`,
+`Dan ya vany,`,
+`Tian belum Berubah Banyak, Tian terus berusaha berubah, dan Tian salah untuk marah, Tian minta maaf🤍`,
+`Terakhir,`,
+`Tian akan terus terusan sayang Vany.`
+];
+
+let index = 0;
+const box = document.getElementById("textBox");
+
+function showSection() {
+    if (index >= sections.length) return;
+
+    box.classList.remove("show");
+    box.classList.add("hide");
+
+    setTimeout(() => {
+        box.innerText = sections[index];
+        box.classList.remove("hide");
+        box.classList.add("show");
+        index++;
+    }, 1000);
+
+    setTimeout(showSection, 8000);
+}
+
+showSection();
+
+/* SWIPE FOTO */
+let cards = document.querySelectorAll('.card');
+let cardContainer = document.getElementById("cards");
+let callBtn = document.getElementById("callBtn");
+
+cards.forEach(card => {
+    let startX = 0;
+    let currentX = 0;
+
+    card.addEventListener('touchstart', e => {
+        startX = e.touches[0].clientX;
+    });
+
+    card.addEventListener('touchmove', e => {
+        currentX = e.touches[0].clientX - startX;
+        card.style.transform = `translateX(${currentX}px) rotate(${currentX/10}deg)`;
+    });
+
+    card.addEventListener('touchend', () => {
+        if (Math.abs(currentX) > 100) {
+            card.style.transform = `translateX(${currentX > 0 ? 500 : -500}px) rotate(${currentX/10}deg)`;
+
+            setTimeout(() => {
+                card.remove();
+
+                if (cardContainer.children.length === 0) {
+                    callBtn.classList.add("show");
+                }
+            }, 300);
+        } else {
+            card.style.transform = '';
+        }
+    });
+});
+</script>
+
+</body>
+</html>
