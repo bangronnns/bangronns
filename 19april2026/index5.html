@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Vany 🤍</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+    text-align: center;
+    background: url('https://i.pinimg.com/736x/0c/fd/28/0cfd28c87b6bd435bf9a307764523a45.jpg') no-repeat center center/cover;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* TEXT */
+.container {
+    position: absolute;
+    top: 10%;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.text {
+    opacity: 0;
+    font-size: 18px;
+    margin: 10px 0;
+    animation: fadeIn 2s forwards;
+}
+
+@keyframes fadeIn {
+    to { opacity: 1; }
+}
+
+/* delay teks */
+.text:nth-child(1) { animation-delay: 2s; }
+.text:nth-child(2) { animation-delay: 5s; }
+.text:nth-child(3) { animation-delay: 8s; }
+.text:nth-child(4) { animation-delay: 11s; }
+.text:nth-child(5) { animation-delay: 14s; }
+.text:nth-child(6) { animation-delay: 17s; }
+.text:nth-child(7) { animation-delay: 20s; }
+.text:nth-child(8) { animation-delay: 23s; }
+.text:nth-child(9) { animation-delay: 26s; }
+.text:nth-child(10) { animation-delay: 29s; }
+.text:nth-child(11) { animation-delay: 32s; }
+.text:nth-child(12) { animation-delay: 35s; }
+.text:nth-child(13) { animation-delay: 38s; }
+.text:nth-child(14) { animation-delay: 41s; }
+.text:nth-child(15) { animation-delay: 44s; }
+.text:nth-child(16) { animation-delay: 47s; }
+.text:nth-child(17) { animation-delay: 50s; }
+.text:nth-child(18) { animation-delay: 53s; }
+.text:nth-child(19) { animation-delay: 56s; }
+
+/* CARD FOTO */
+.card-container {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    position: absolute;
+    width: 80%;
+    height: 100%;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    background: #000;
+    touch-action: none;
+    transition: transform 0.3s;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* tumpukan */
+.card:nth-child(1) { z-index: 5; }
+.card:nth-child(2) { z-index: 4; transform: scale(0.95) translateY(10px); }
+.card:nth-child(3) { z-index: 3; transform: scale(0.9) translateY(20px); }
+.card:nth-child(4) { z-index: 2; transform: scale(0.85) translateY(30px); }
+.card:nth-child(5) { z-index: 1; transform: scale(0.8) translateY(40px); }
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<div class="text">Tau gak kenapa senja itu menyenangkan?</div>
+<div class="text">kadang dia merah, merekah bahagia</div>
+<div class="text">kadang dia hitam, gelap berduka</div>
+<div class="text">tapi langit, selalu menerima senja apa adanya</div>
+
+<div class="text">"Kayaknya, mau diulang ratusan kalipun, aku tetep pilih kamu deh"<br>- Sore</div>
+<div class="text">"Jangan Biarin aku Hilang di telan waktu ya jo"<br>- Sore</div>
+<div class="text">"orang ga akan pernah berubah karna rasa takut, tapi karna di cintai"<br>- Jo</div>
+
+<div class="text">Sudah Bobo?? kapan kita nontonn romance film lagi nihh??</div>
+<div class="text">Maafin Tian yah, tian cuman butuh waktu buat tenangin diri tadi.</div>
+<div class="text">Tian sebenar benarnya kangen vany...</div>
+<div class="text">mau kaya gimanapun kamu, aku tetep sayang kamu.</div>
+<div class="text">Maafin tian yang udah ngebandingin kamu ya...</div>
+<div class="text">kalau kamu belum bobo aku temenin sini vann!!</div>
+<div class="text">tian dah ga emosi lagi ko...</div>
+<div class="text">Besok gereja yah!!</div>
+<div class="text">Dan ya vany,</div>
+<div class="text">Tian minta maaf🤍</div>
+<div class="text">Terakhir,</div>
+<div class="text">Tian akan terus sayang Vany.</div>
+</div>
+
+<!-- FOTO STACK -->
+<div class="card-container" id="cards">
+    <div class="card"><img src="foto1.jpg"></div>
+    <div class="card"><img src="foto2.jpg"></div>
+    <div class="card"><img src="foto3.jpg"></div>
+    <div class="card"><img src="foto4.jpg"></div>
+    <div class="card"><img src="foto5.jpg"></div>
+</div>
+
+<script>
+let cards = document.querySelectorAll('.card');
+
+cards.forEach((card, index) => {
+    let startX = 0;
+    let currentX = 0;
+    let isDragging = false;
+
+    card.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        isDragging = true;
+    });
+
+    card.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        currentX = e.touches[0].clientX - startX;
+        card.style.transform = `translateX(${currentX}px) rotate(${currentX/10}deg)`;
+    });
+
+    card.addEventListener('touchend', () => {
+        isDragging = false;
+
+        if (Math.abs(currentX) > 100) {
+            card.style.transform = `translateX(${currentX > 0 ? 500 : -500}px) rotate(${currentX/10}deg)`;
+            setTimeout(() => {
+                card.remove();
+            }, 300);
+        } else {
+            card.style.transform = '';
+        }
+    });
+});
+</script>
+
+</body>
+</html>
